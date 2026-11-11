@@ -1,5 +1,6 @@
 export { Icon, type IconProps } from "./icon";
-export { ThemeProvider, ThemeToggle, useTheme, themeScript, type Theme } from "./theme";
+export { ThemeProvider, ThemeToggle, useTheme, type Theme } from "./theme";
+export { themeScript } from "./theme-script";
 export {
   Avatar,
   Badge,
@@ -10,7 +11,6 @@ export {
   Pill,
   Seam,
   Tabs,
-  Ticker,
   type ButtonProps,
   type CardProps,
   type FieldProps,

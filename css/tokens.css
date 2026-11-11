@@ -26,8 +26,8 @@
   /* Foreground — warm cream so it doesn't read clinical */
   --p-fg-1:      #F7F4EC;
   --p-fg-2:      #B8B5AD;
-  --p-fg-3:      #8A867E;
-  --p-fg-4:      #5C5A53;
+  --p-fg-3:      #9A968E;   /* 4.5:1 on a rule-1 tint, for small mono labels */
+  --p-fg-4:      #5C5A53;   /* decorative only (dividers, disabled); never body text */
 
   /* Gold — reserved for ACTION */
   --p-gold:      #E5A94A;
@@ -38,6 +38,7 @@
   /* Lume (teal) — reserved for SIGNAL / state */
   --p-lume:      #3EAA9C;
   --p-on-lume:   #0B0C10;
+  --p-on-neg:    #0B0C10;
 
   /* Hairlines */
   --p-rule-1:    rgba(184,181,173,.12);
@@ -67,24 +68,25 @@
 
   --p-fg-1:      #18222F;
   --p-fg-2:      #3F4B5A;
-  --p-fg-3:      #5B6573;
-  --p-fg-4:      #A2A8B0;
+  --p-fg-3:      #4F5967;
+  --p-fg-4:      #7D8590;   /* decorative only */
 
-  --p-gold:      #8F620D;
-  --p-gold-soft: #A9761A;
-  --p-gold-deep: #6E4A08;
+  --p-gold:      #7A530A;   /* light values clear 4.5:1 as text on their own 8-15% tint */
+  --p-gold-soft: #94650E;
+  --p-gold-deep: #5E3F06;
   --p-on-gold:   #FAF8F3;
 
-  --p-lume:      #1F7A6F;
+  --p-lume:      #17675D;
   --p-on-lume:   #FAF8F3;
+  --p-on-neg:    #FAF8F3;
 
   --p-rule-1:    rgba(24,34,47,.10);
   --p-rule-2:    rgba(24,34,47,.18);
   --p-rule-3:    rgba(24,34,47,.30);
 
-  --p-pos:       #15803D;
-  --p-warn:      #8F620D;
-  --p-neg:       #B14C3F;
+  --p-pos:       #126B33;
+  --p-warn:      #7A530A;
+  --p-neg:       #9A3D31;
 
   --p-shadow-1: 0 1px 0 rgba(24,34,47,.06);
   --p-shadow-2: 0 8px 24px -16px rgba(24,34,47,.18);
@@ -182,15 +184,3 @@
     --p-pad-section-x: 16px; --p-pad-section-y: 40px; --p-pad-card: 18px;
   }
 }
-
-body {
-  background: var(--p-bg);
-  color: var(--p-fg-1);
-  font-family: var(--p-sans);
-  font-size: var(--p-size-body);
-  line-height: var(--p-line-normal);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-::selection { background: var(--p-lume); color: var(--p-on-lume); }
-:focus-visible { outline: 2px solid var(--p-gold); outline-offset: 2px; }

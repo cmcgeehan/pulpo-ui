@@ -7,7 +7,7 @@ React fronts. Open `showcase.html` in a browser to see every piece in both theme
 ## Use it
 
 ```bash
-npm i github:cmcgeehan/pulpo-ui#v0.1.0
+npm i github:cmcgeehan/pulpo-ui#v0.1.1
 ```
 
 ```ts
@@ -16,7 +16,9 @@ transpilePackages: ["@pulpo/ui"],
 ```
 
 ```tsx
-// app/layout.tsx
+// app/layout.tsx — after the stylesheet that does @import "tailwindcss" (Tailwind apps),
+// or Tailwind's preflight outranks the components.
+import "./globals.css";
 import "@pulpo/ui/tokens.css";
 import "@pulpo/ui/components.css";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -41,6 +43,12 @@ import { Button, Card, Pill, Badge, Field, Tabs, Eyebrow, Icon, ThemeToggle } fr
 <Tabs label="View" items={[{ value: "pipeline", label: "Pipeline" }]} value={v} onChange={setV} />
 ```
 
+`transpilePackages` is required: the package ships TypeScript source, no build step.
+
+Cascade: `components.css` lives in `@layer base` / `@layer components`, so your own unlayered
+CSS and Tailwind utilities (`p-btn mt-4`) override it. Override with care: a page-level
+`.p-btn { … }` replaces the shared look for that app.
+
 Tailwind apps: use the tokens directly (`bg-[var(--p-surface)]`), or alias your theme
 colors to them in `@theme inline`.
 
@@ -48,7 +56,9 @@ colors to them in `@theme inline`.
 
 - Gold is for action (primary button, the one primary card). Teal lume is for signal (live, active tab, eyebrow).
 - Pills for actions and tabs, 12px panels, 8px fields, hairline rules instead of borders.
-- Geist everywhere; the accent moment is `.p-serif` (Geist italic in gold), one per heading.
+- Geist everywhere; the accent moment is `.p-serif` (Geist, synthesized italic like the site, in gold), one per heading.
+- Text on a gold/teal/red fill uses `--p-on-gold` / `--p-on-lume` / `--p-on-neg`, never `#fff`.
+- `--p-fg-4` is decorative only (dividers, disabled). Body text stops at `--p-fg-3`.
 
 ## Release
 

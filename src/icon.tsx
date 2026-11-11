@@ -12,7 +12,7 @@ export type IconProps = {
 
 export const Icon = ({ name, size = 16, strokeWidth = 1.5, style, className }: IconProps) => {
   const p = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor",
-    strokeWidth, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, style, className };
+    strokeWidth, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, style, className, "aria-hidden": true };
   switch (name) {
     case "search":return <svg {...p}><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>;
     case "chev-right":return <svg {...p}><path d="m9 6 6 6-6 6" /></svg>;

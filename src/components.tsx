@@ -2,7 +2,7 @@
 // Typed fronts for the .p-* classes in css/components.css. The classes are the real API
 // (any app can use them from plain HTML); these exist so React callers get props, not strings.
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId } from "react";
 import type * as React from "react";
 
 const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
@@ -44,7 +44,14 @@ export type FieldProps = {
   error?: React.ReactNode;
   required?: boolean;
   /** Receives the generated id and aria props; spread them onto the control. */
-  children: (control: { id: string; "aria-describedby"?: string; "aria-invalid"?: boolean; className: string }) => React.ReactNode;
+  children: (control: {
+    id: string;
+    className: string;
+    required?: boolean;
+    "aria-describedby"?: string;
+    "aria-invalid"?: boolean;
+  }) => React.ReactNode;
+  /** Which control the child renders; picks its class. */
   input?: "input" | "textarea" | "select";
 };
 
@@ -52,7 +59,8 @@ export type FieldProps = {
 export function Field({ label, help, error, required, children, input = "input" }: FieldProps) {
   const id = useId();
   const noteId = `${id}-note`;
-  const note = error ?? help;
+  const hasError = Boolean(error);
+  const note = hasError ? error : help;
   return (
     <div className="p-field">
       <label className="p-label" htmlFor={id}>
@@ -61,12 +69,13 @@ export function Field({ label, help, error, required, children, input = "input" 
       </label>
       {children({
         id,
+        className: cx(`p-${input}`, hasError && "is-error"),
+        required: required || undefined,
         "aria-describedby": note ? noteId : undefined,
-        "aria-invalid": error != null ? true : undefined,
-        className: cx(`p-${input}`, error != null && "is-error"),
+        "aria-invalid": hasError || undefined,
       })}
       {note && (
-        <span id={noteId} className={error ? "p-error" : "p-help"}>
+        <span id={noteId} className={hasError ? "p-error" : "p-help"} aria-live="polite">
           {note}
         </span>
       )}
@@ -89,10 +98,13 @@ export function Tabs<T extends string>({
   label: string;
 }) {
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-    if (!step) return;
+    if (e.altKey || e.metaKey || e.ctrlKey) return;
     const i = items.findIndex((t) => t.value === value);
-    const next = items[(i + step + items.length) % items.length];
+    const n = items.length;
+    const to = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
+    if (to === undefined) return;
+    e.preventDefault();
+    const next = items[to];
     onChange(next.value);
     (e.currentTarget.querySelector(`[data-value="${CSS.escape(next.value)}"]`) as HTMLElement | null)?.focus();
   };
@@ -116,14 +128,14 @@ export function Tabs<T extends string>({
   );
 }
 
-/** Mono uppercase label in teal; `pulse` adds the breathing lume dot. */
-export const Eyebrow = ({ children, pulse = false }: { children?: React.ReactNode; pulse?: boolean }) => (
-  <div className={cx("p-eyebrow", pulse ? "is-pulse" : "is-quiet")}>{children}</div>
+/** Mono uppercase label in teal with a lume dot. `pulse` makes the dot breathe; `quiet` drops it. */
+export const Eyebrow = ({ children, pulse, quiet }: { children?: React.ReactNode; pulse?: boolean; quiet?: boolean }) => (
+  <div className={cx("p-eyebrow", pulse && "is-pulse", quiet && "is-quiet")}>{children}</div>
 );
 
 /** Section divider with the § medallion. */
 export const Seam = ({ caption }: { caption?: React.ReactNode }) => (
-  <div className="p-seam" role="separator">
+  <div className="p-seam">
     {caption && <span className="p-seam-cap">{caption}</span>}
     <span className="p-seam-mark" />
   </div>
@@ -134,40 +146,3 @@ export const Avatar = ({ initials, gold }: { initials: string; gold?: boolean })
     {initials}
   </span>
 );
-
-/** Number that counts up to `value`. Always lands on `value`, even if rAF never runs. */
-export function Ticker({ value, dur = 620, className }: { value: number; dur?: number; className?: string }) {
-  const [shown, setShown] = useState(value);
-  const from = useRef(value);
-  useEffect(() => {
-    const a = from.current;
-    from.current = value;
-    if (a === value || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setShown(value);
-      return;
-    }
-    const start = performance.now();
-    let raf = 0;
-    let done = false;
-    const land = () => {
-      if (!done) {
-        done = true;
-        setShown(value);
-      }
-    };
-    const step = (t: number) => {
-      const k = Math.min(1, (t - start) / dur);
-      setShown(Math.round(a + (value - a) * (1 - Math.pow(1 - k, 3))));
-      if (k < 1) raf = requestAnimationFrame(step);
-      else land();
-    };
-    raf = requestAnimationFrame(step);
-    const safety = setTimeout(land, dur + 80);
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(safety);
-      done = true;
-    };
-  }, [value, dur]);
-  return <span className={className}>{shown}</span>;
-}
