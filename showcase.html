@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulpo UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  /* Showcase layout only — not part of the package. */
+  body { margin: 0; }
+  .sc { max-width: 1040px; margin: 0 auto; padding: 48px 16px 96px; display: grid; gap: 48px; }
+  @media (min-width: 761px) { .sc { padding-inline: 48px; } }
+  .sc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .sc-sec { display: grid; gap: 16px; }
+  .sc-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .sc-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .sc-sw { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .sc-chip { border-radius: 8px; height: 56px; box-shadow: inset 0 0 0 1px var(--p-rule-2); }
+  .sc-chip + code { font-family: var(--p-mono); font-size: 11px; color: var(--p-fg-3); }
+  .sc code.cls { font-family: var(--p-mono); font-size: 12px; color: var(--p-fg-3); }
+  .sc-scroll { overflow-x: auto; }
+</style>
+</head>
+<body class="p-grain">
+<main class="sc">
+  <header class="sc-top">
+    <div style="display:grid;gap:12px">
+      <div class="p-eyebrow is-pulse">Pulpo UI · v0.1.0</div>
+      <h1 class="p-h1">The heypulpo.com look, <span class="p-serif">for every tool</span>.</h1>
+      <p class="p-lede">Tokens, components and React fronts shared by pulpo-internal, Plasticity and Calamari. Toggle the theme to check both.</p>
+    </div>
+    <button class="p-theme-toggle" id="tt" type="button" role="switch" aria-checked="false" aria-label="Light theme">◐</button>
+  </header>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Colour</div>
+    <div class="sc-sw" id="swatches"></div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Type</div>
+    <h2 class="p-h2">Headline · p-h2</h2>
+    <h3 class="p-h3">Title · p-h3</h3>
+    <h4 class="p-h4">Subtitle · p-h4</h4>
+    <p class="p-body">Body copy sits in fg-2 at 15px. Warm cream on ink so it never reads clinical. <span class="p-mono">p-mono 1,284</span></p>
+    <p class="p-caption">Caption · fg-3 for metadata and timestamps.</p>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Buttons · &lt;Button variant size href&gt;</div>
+    <div class="sc-row">
+      <button class="p-btn p-btn-primary">Book a call</button>
+      <button class="p-btn p-btn-secondary">See the work</button>
+      <button class="p-btn p-btn-ghost">Cancel</button>
+      <button class="p-btn p-btn-danger">Archive</button>
+      <button class="p-btn p-btn-primary" disabled>Disabled</button>
+    </div>
+    <div class="sc-row">
+      <button class="p-btn p-btn-primary p-btn-sm">Small</button>
+      <button class="p-btn p-btn-secondary p-btn-sm">Small</button>
+      <button class="p-btn p-btn-primary p-btn-lg">Large</button>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Pills & badges · &lt;Pill tone&gt; &lt;Badge quiet&gt;</div>
+    <div class="sc-row">
+      <span class="p-pill">Needs action</span>
+      <span class="p-pill is-lume">Live</span>
+      <span class="p-pill is-pos">Placed</span>
+      <span class="p-pill is-neg">Blocked</span>
+      <span class="p-pill is-quiet">Draft</span>
+      <span class="p-badge">Freight ops</span>
+      <span class="p-badge is-quiet">#1042</span>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Tabs · &lt;Tabs items value onChange label&gt;</div>
+    <div class="p-tabs" role="tablist" aria-label="Pipeline">
+      <button class="p-tab is-active" role="tab" aria-selected="true">Pipeline</button>
+      <button class="p-tab" role="tab" aria-selected="false" tabindex="-1">Pool</button>
+      <button class="p-tab" role="tab" aria-selected="false" tabindex="-1">Archive</button>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Cards · &lt;Card primary compact&gt;</div>
+    <div class="sc-grid">
+      <div class="p-card"><div style="display:grid;gap:8px"><h4 class="p-h4">Default card</h4><p class="p-body-sm" style="margin:0">Hairline panel on surface. Most content lives here.</p></div></div>
+      <div class="p-card p-card-primary"><div style="display:grid;gap:8px"><h4 class="p-h4">Primary card</h4><p class="p-body-sm" style="margin:0">Gold hairline on top. One per view, for the thing to act on.</p></div></div>
+      <div class="p-card p-card-compact"><div class="p-stat-label p-eyebrow is-quiet">This week</div><div class="p-h2"><span class="p-mono">312</span></div><p class="p-caption" style="margin:0">Loads booked</p></div>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Forms · &lt;Field label help error&gt;</div>
+    <div class="sc-grid">
+      <div class="p-field"><label class="p-label" for="f1">Company <span class="p-required">*</span></label><input class="p-input" id="f1" placeholder="Evans Transport"><span class="p-help">As it appears on the contract.</span></div>
+      <div class="p-field"><label class="p-label" for="f2">Email</label><input class="p-input is-error" id="f2" value="gaby@" aria-invalid="true" aria-describedby="f2e"><span class="p-error" id="f2e">Enter a full email</span></div>
+      <div class="p-field"><label class="p-label" for="f3">Team size</label><select class="p-select" id="f3"><option>1–5</option><option>6–20</option></select></div>
+      <div class="p-field"><label class="p-label" for="f4">Notes</label><textarea class="p-textarea" id="f4" placeholder="What should the team know?"></textarea></div>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Table · .p-table</div>
+    <div class="sc-scroll">
+      <table class="p-table">
+        <thead><tr><th>Candidate</th><th>Role</th><th>Status</th><th class="num">Score</th></tr></thead>
+        <tbody>
+          <tr><td>Ana Ruiz</td><td>Dispatcher</td><td><span class="p-pill is-pos">Pass</span></td><td class="num p-mono">91</td></tr>
+          <tr><td>Luis Ortega</td><td>Bookkeeper</td><td><span class="p-pill">Review</span></td><td class="num p-mono">74</td></tr>
+          <tr><td>Marta Gil</td><td>Support lead</td><td><span class="p-pill is-quiet">Screening</span></td><td class="num p-mono">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Alerts</div>
+    <div class="p-alert is-lume"><div>Synced 4 jobs from Calamari a minute ago.</div></div>
+    <div class="p-alert is-neg"><div>Notion rejected the update. Nothing was saved.</div></div>
+  </section>
+
+  <div class="p-seam"><span class="p-seam-cap">§ end</span><span class="p-seam-mark"></span></div>
+</main>
+<script>
+  const tokens = ["--p-bg","--p-bg-2","--p-surface","--p-raised","--p-sunk","--p-fg-1","--p-fg-2","--p-fg-3","--p-gold","--p-lume","--p-pos","--p-neg"];
+  document.getElementById("swatches").innerHTML = tokens.map(t => `<div><div class="sc-chip" style="background:var(${t})"></div><code>${t}</code></div>`).join("");
+  const tt = document.getElementById("tt");
+  tt.onclick = () => {
+    const light = document.documentElement.dataset.theme !== "light";
+    document.documentElement.dataset.theme = light ? "light" : "dark";
+    tt.setAttribute("aria-checked", String(light));
+  };
+</script>
+</body>
+</html>

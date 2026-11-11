@@ -1,0 +1,196 @@
+/* ============================================================
+   Pulpo UI — tokens
+   The heypulpo.com "Raven" look (pulpo repo, app/globals.css) as the one
+   palette for every internal tool. Near-black ink canvas, cream type, gold
+   for action, teal lume for signal, warm hairlines, Geist.
+
+   Themes: dark (default) and light, via data-theme on <html>.
+   Light is the site's paper card (.hp --c-* tokens): cream paper, deep ink,
+   deep gold that passes contrast as text.
+
+   Fonts: load Geist + Geist Mono in the app (next/font/google `Geist`,
+   `Geist_Mono` with variable "--font-geist" / "--font-geist-mono").
+   ============================================================ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surface */
+  --p-bg:        #0B0C10;   /* page floor */
+  --p-bg-2:      #111217;   /* alt band, sidebars */
+  --p-surface:   #16181D;   /* card */
+  --p-raised:    #1E2026;   /* popover, modal */
+  --p-sunk:      #07080B;   /* input well, code */
+
+  /* Foreground — warm cream so it doesn't read clinical */
+  --p-fg-1:      #F7F4EC;
+  --p-fg-2:      #B8B5AD;
+  --p-fg-3:      #8A867E;
+  --p-fg-4:      #5C5A53;
+
+  /* Gold — reserved for ACTION */
+  --p-gold:      #E5A94A;
+  --p-gold-soft: #F2BC5C;
+  --p-gold-deep: #BC862A;
+  --p-on-gold:   #0B0C10;   /* text on a gold fill */
+
+  /* Lume (teal) — reserved for SIGNAL / state */
+  --p-lume:      #3EAA9C;
+  --p-on-lume:   #0B0C10;
+
+  /* Hairlines */
+  --p-rule-1:    rgba(184,181,173,.12);
+  --p-rule-2:    rgba(184,181,173,.22);
+  --p-rule-3:    rgba(184,181,173,.36);
+
+  /* Semantic */
+  --p-pos:       #4CB782;
+  --p-warn:      #E5A94A;
+  --p-neg:       #D86B5C;
+  --p-info:      var(--p-lume);
+
+  /* Shadow */
+  --p-shadow-1: 0 1px 0 rgba(0,0,0,.30);
+  --p-shadow-2: 0 8px 24px -16px rgba(0,0,0,.6);
+  --p-shadow-3: 0 24px 48px -28px rgba(0,0,0,.7);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --p-bg:        #F4F1E9;
+  --p-bg-2:      #EBE7DB;
+  --p-surface:   #FAF8F3;
+  --p-raised:    #FFFFFF;
+  --p-sunk:      #E8E3D4;
+
+  --p-fg-1:      #18222F;
+  --p-fg-2:      #3F4B5A;
+  --p-fg-3:      #5B6573;
+  --p-fg-4:      #A2A8B0;
+
+  --p-gold:      #8F620D;
+  --p-gold-soft: #A9761A;
+  --p-gold-deep: #6E4A08;
+  --p-on-gold:   #FAF8F3;
+
+  --p-lume:      #1F7A6F;
+  --p-on-lume:   #FAF8F3;
+
+  --p-rule-1:    rgba(24,34,47,.10);
+  --p-rule-2:    rgba(24,34,47,.18);
+  --p-rule-3:    rgba(24,34,47,.30);
+
+  --p-pos:       #15803D;
+  --p-warn:      #8F620D;
+  --p-neg:       #B14C3F;
+
+  --p-shadow-1: 0 1px 0 rgba(24,34,47,.06);
+  --p-shadow-2: 0 8px 24px -16px rgba(24,34,47,.18);
+  --p-shadow-3: 0 24px 48px -28px rgba(24,34,47,.22);
+}
+
+/* Derived — tints follow the theme's base colour, so neither theme restates them. */
+:root,
+[data-theme] {
+  --p-gold-08:   color-mix(in srgb, var(--p-gold) 8%, transparent);
+  --p-gold-15:   color-mix(in srgb, var(--p-gold) 15%, transparent);
+  --p-gold-30:   color-mix(in srgb, var(--p-gold) 30%, transparent);
+  --p-gold-50:   color-mix(in srgb, var(--p-gold) 50%, transparent);
+  --p-gold-55:   color-mix(in srgb, var(--p-gold) 55%, transparent);
+  --p-lume-08:   color-mix(in srgb, var(--p-lume) 8%, transparent);
+  --p-lume-15:   color-mix(in srgb, var(--p-lume) 15%, transparent);
+  --p-lume-30:   color-mix(in srgb, var(--p-lume) 30%, transparent);
+  --p-lume-soft: color-mix(in srgb, var(--p-lume) 55%, transparent);
+  --p-pos-08:    color-mix(in srgb, var(--p-pos) 8%, transparent);
+  --p-pos-30:    color-mix(in srgb, var(--p-pos) 30%, transparent);
+  --p-neg-08:    color-mix(in srgb, var(--p-neg) 8%, transparent);
+  --p-neg-30:    color-mix(in srgb, var(--p-neg) 30%, transparent);
+  --p-halo-gold: var(--p-gold-15);
+  --p-halo-lume: var(--p-lume-15);
+  --p-shadow-gold: 0 6px 18px -8px var(--p-gold-50);
+  --p-shadow-lume: 0 0 24px -4px var(--p-lume-30);
+
+  --p-input-bg:    transparent;
+  --p-input-rule:  var(--p-rule-2);
+  --p-input-focus: var(--p-gold);
+}
+
+:root {
+  /* Type families */
+  --p-sans:    var(--font-geist, "Geist"), system-ui, -apple-system, sans-serif;
+  --p-display: var(--p-sans);
+  --p-mono:    var(--font-geist-mono, "Geist Mono"), ui-monospace, "SF Mono", monospace;
+  --p-serif:   var(--p-sans);   /* the site dropped Cormorant; the accent is Geist italic */
+
+  /* Type scale */
+  --p-size-display:   56px;
+  --p-size-headline:  40px;
+  --p-size-title:     24px;
+  --p-size-subtitle:  18px;
+  --p-size-body:      15px;
+  --p-size-body-sm:   14px;
+  --p-size-caption:   13px;
+  --p-size-mono:      11px;
+
+  --p-line-tight:     1.04;
+  --p-line-snug:      1.20;
+  --p-line-normal:    1.5;
+  --p-line-loose:     1.65;
+  --p-track-display:  -0.026em;
+  --p-track-headline: -0.02em;
+  --p-track-title:    -0.01em;
+  --p-track-mono:     0.12em;
+
+  /* Spacing */
+  --p-space-1: 4px;  --p-space-2: 8px;  --p-space-3: 12px; --p-space-4: 16px;
+  --p-space-5: 20px; --p-space-6: 24px; --p-space-7: 32px; --p-space-8: 40px;
+  --p-space-9: 56px; --p-space-10: 80px; --p-space-11: 112px;
+
+  /* Radii — pills for actions, 12px panels, 8px fields */
+  --p-radius-1: 4px;
+  --p-radius-2: 8px;
+  --p-radius-3: 12px;
+  --p-radius-4: 16px;
+  --p-radius-pill: 9999px;
+  --p-radius-sm: var(--p-radius-1);
+  --p-radius-md: var(--p-radius-2);
+  --p-radius-lg: var(--p-radius-3);
+  --p-radius-xl: var(--p-radius-4);
+
+  /* Motion */
+  --p-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --p-ease-in:  cubic-bezier(.6, 0, .4, 1);
+  --p-d-fast:   140ms;
+  --p-d-base:   220ms;
+  --p-d-slow:   380ms;
+
+  /* Density */
+  --p-pad-card:         24px;
+  --p-pad-card-compact: 16px;
+  --p-pad-section-y:    64px;
+  --p-pad-section-x:    48px;
+}
+
+@media (max-width: 1024px) {
+  :root { --p-size-display: 44px; --p-size-headline: 32px; --p-pad-section-x: 32px; }
+}
+@media (max-width: 480px) {
+  :root {
+    --p-size-display: 36px; --p-size-headline: 26px; --p-size-title: 20px;
+    --p-pad-section-x: 16px; --p-pad-section-y: 40px; --p-pad-card: 18px;
+  }
+}
+
+body {
+  background: var(--p-bg);
+  color: var(--p-fg-1);
+  font-family: var(--p-sans);
+  font-size: var(--p-size-body);
+  line-height: var(--p-line-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::selection { background: var(--p-lume); color: var(--p-on-lume); }
+:focus-visible { outline: 2px solid var(--p-gold); outline-offset: 2px; }

@@ -1,0 +1,25 @@
+{
+  "name": "@pulpo/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pulpo's internal-tools design system: the heypulpo.com Raven look as tokens, CSS components and React fronts.",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./css/tokens.css",
+    "./components.css": "./css/components.css"
+  },
+  "files": ["css", "src"],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "react": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}
