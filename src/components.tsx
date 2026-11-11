@@ -1,11 +1,10 @@
-"use client";
 // Typed fronts for the .p-* classes in css/components.css. The classes are the real API
 // (any app can use them from plain HTML); these exist so React callers get props, not strings.
 
 import { useId } from "react";
 import type * as React from "react";
 
-const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
+export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
 
 type ButtonOwnProps = { variant?: "primary" | "secondary" | "ghost" | "danger"; size?: "sm" | "md" | "lg" };
 export type ButtonProps =
@@ -75,55 +74,10 @@ export function Field({ label, help, error, required, children, input = "input" 
         "aria-invalid": hasError || undefined,
       })}
       {note && (
-        <span id={noteId} className={hasError ? "p-error" : "p-help"} aria-live="polite">
+        <span id={noteId} className={hasError ? "p-error" : "p-help"} aria-live={hasError ? "polite" : undefined}>
           {note}
         </span>
       )}
-    </div>
-  );
-}
-
-export type TabItem<T extends string> = { value: T; label: React.ReactNode };
-
-/** Pill toggle. Arrow keys move between tabs (WAI-ARIA tabs pattern). */
-export function Tabs<T extends string>({
-  items,
-  value,
-  onChange,
-  label,
-}: {
-  items: TabItem<T>[];
-  value: T;
-  onChange: (v: T) => void;
-  label: string;
-}) {
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.altKey || e.metaKey || e.ctrlKey) return;
-    const i = items.findIndex((t) => t.value === value);
-    const n = items.length;
-    const to = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
-    if (to === undefined) return;
-    e.preventDefault();
-    const next = items[to];
-    onChange(next.value);
-    (e.currentTarget.querySelector(`[data-value="${CSS.escape(next.value)}"]`) as HTMLElement | null)?.focus();
-  };
-  return (
-    <div className="p-tabs" role="tablist" aria-label={label} onKeyDown={onKeyDown}>
-      {items.map((t) => (
-        <button
-          key={t.value}
-          type="button"
-          role="tab"
-          data-value={t.value}
-          aria-selected={t.value === value}
-          tabIndex={t.value === value ? 0 : -1}
-          className={cx("p-tab", t.value === value && "is-active")}
-          onClick={() => onChange(t.value)}
-        >
-          {t.label}
-        </button>
-      ))}
     </div>
   );
 }

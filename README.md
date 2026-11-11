@@ -7,7 +7,7 @@ React fronts. Open `showcase.html` in a browser to see every piece in both theme
 ## Use it
 
 ```bash
-npm i github:cmcgeehan/pulpo-ui#v0.1.1
+npm i github:cmcgeehan/pulpo-ui#v0.1.2
 ```
 
 ```ts
@@ -16,8 +16,7 @@ transpilePackages: ["@pulpo/ui"],
 ```
 
 ```tsx
-// app/layout.tsx — after the stylesheet that does @import "tailwindcss" (Tailwind apps),
-// or Tailwind's preflight outranks the components.
+// app/layout.tsx — after the stylesheet that does @import "tailwindcss" (Tailwind apps).
 import "./globals.css";
 import "@pulpo/ui/tokens.css";
 import "@pulpo/ui/components.css";
@@ -44,10 +43,13 @@ import { Button, Card, Pill, Badge, Field, Tabs, Eyebrow, Icon, ThemeToggle } fr
 ```
 
 `transpilePackages` is required: the package ships TypeScript source, no build step.
+The repo must stay public: npm records the dependency as `git+ssh` but installs it from
+GitHub's public HTTPS tarball, which is what lets Vercel build without a key.
 
 Cascade: `components.css` lives in `@layer base` / `@layer components`, so your own unlayered
-CSS and Tailwind utilities (`p-btn mt-4`) override it. Override with care: a page-level
-`.p-btn { … }` replaces the shared look for that app.
+CSS and Tailwind utilities (`p-btn mt-4`) override it. That includes unlayered element rules:
+a global `a { color: … }` recolours `<a class="p-btn">`, so put app element defaults in
+`@layer base`. Override with care: a page-level `.p-btn { … }` replaces the shared look.
 
 Tailwind apps: use the tokens directly (`bg-[var(--p-surface)]`), or alias your theme
 colors to them in `@theme inline`.

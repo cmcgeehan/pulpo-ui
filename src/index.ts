@@ -10,10 +10,9 @@ export {
   Field,
   Pill,
   Seam,
-  Tabs,
   type ButtonProps,
   type CardProps,
   type FieldProps,
-  type TabItem,
   type Tone,
 } from "./components";
+export { Tabs, type TabItem } from "./tabs";

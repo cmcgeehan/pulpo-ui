@@ -1,7 +1,8 @@
 /* Pulpo UI — components. Needs tokens.css loaded first.
    Every class is usable from plain HTML; src/ adds typed React fronts for the common ones.
-   Layered (base, components) so app CSS and Tailwind utilities override it. With Tailwind v4,
-   import this AFTER the stylesheet that does @import "tailwindcss", or preflight outranks it. */
+   Layered (base, components) so app CSS and Tailwind utilities override it. Any UNLAYERED app
+   rule beats it, element selectors included (a global `a { color }` recolours link buttons), so
+   keep app element defaults in @layer base too. With Tailwind, import this after it. */
 
 @layer base {
   body {
@@ -158,19 +159,19 @@
 
 /* primary — flat gold pill */
 .p-btn-primary { background: var(--p-gold); color: var(--p-on-gold); }
-.p-btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+.p-btn-primary:hover:not(:disabled) { opacity: .88; transform: translateY(-1px); }
 
 /* secondary — cream outline, gold on hover */
 .p-btn-secondary { background: transparent; color: var(--p-fg-1); box-shadow: inset 0 0 0 1.5px var(--p-fg-1); }
-.p-btn-secondary:hover { color: var(--p-gold); box-shadow: inset 0 0 0 1.5px var(--p-gold); }
+.p-btn-secondary:hover:not(:disabled) { color: var(--p-gold); box-shadow: inset 0 0 0 1.5px var(--p-gold); }
 
 /* ghost — text only, teal on hover */
 .p-btn-ghost { background: transparent; color: var(--p-fg-2); padding-inline: 12px; }
-.p-btn-ghost:hover { color: var(--p-lume); }
+.p-btn-ghost:hover:not(:disabled) { color: var(--p-lume); }
 
 /* destructive */
 .p-btn-danger { background: var(--p-neg); color: var(--p-on-neg); }
-.p-btn-danger:hover { opacity: .88; transform: translateY(-1px); }
+.p-btn-danger:hover:not(:disabled) { opacity: .88; transform: translateY(-1px); }
 
 @media (prefers-reduced-motion: reduce) {
   .p-btn, .p-btn:hover, .p-btn:active { transition: none; transform: none; }
