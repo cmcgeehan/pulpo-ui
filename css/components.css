@@ -450,7 +450,7 @@
 /* MODAL */
 .p-modal-scrim {
   position: fixed; inset: 0;
-  background: color-mix(in oklch, var(--p-bg) 70%, transparent);
+  background: color-mix(in srgb, var(--p-bg) 70%, transparent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 100;
