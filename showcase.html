@@ -178,9 +178,9 @@
       </ol>
       <div class="p-well" style="display:grid; gap:12px">
         <span class="p-label">Choice · p-choice · Range · p-range</span>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
-          <button class="p-choice is-on"><strong>Full time</strong><em>40 h / week</em></button>
-          <button class="p-choice"><strong>Part time</strong><em>20 h / week</em></button>
+        <div role="radiogroup" aria-label="Hours" style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+          <button class="p-choice is-on" role="radio" aria-checked="true"><strong>Full time</strong><em>40 h / week</em></button>
+          <button class="p-choice" role="radio" aria-checked="false"><strong>Part time</strong><em>20 h / week</em></button>
         </div>
         <input class="p-range" type="range" min="0" max="100" value="62" aria-label="Pass threshold">
         <div class="sc-row"><span class="p-spin"></span><span class="p-caption">p-spin · drafting the posting…</span></div>
