@@ -20,6 +20,7 @@ transpilePackages: ["@pulpo/ui"],
 import "./globals.css";
 import "@pulpo/ui/tokens.css";
 import "@pulpo/ui/components.css";
+import "@pulpo/ui/console.css"; // apps with a nav rail (shell, palette, steps, …)
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeScript } from "@pulpo/ui";
 
@@ -56,7 +57,7 @@ colors to them in `@theme inline`.
 
 ## Console pieces (v0.2)
 
-For internal tools with a nav rail. Classes, plain HTML, no JS:
+For internal tools with a nav rail. Import `@pulpo/ui/console.css` after `components.css`. Classes, plain HTML, no JS:
 
 | Need | Class |
 |---|---|
