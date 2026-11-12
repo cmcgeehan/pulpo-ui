@@ -90,10 +90,13 @@ export function Field({ label, help, error, required, children, input = "input" 
   );
 }
 
-/** Mono uppercase label in teal with a lume dot. `pulse` makes the dot breathe; `quiet` drops it. */
-export const Eyebrow = ({ children, pulse, quiet }: { children?: React.ReactNode; pulse?: boolean; quiet?: boolean }) => (
-  <div className={cx("p-eyebrow", pulse && "is-pulse", quiet && "is-quiet")}>{children}</div>
-);
+/** Mono uppercase label in teal, like the site's section eyebrows. `pulse` adds a breathing dot for something live. */
+export const Eyebrow = ({ children, pulse }: {
+  children?: React.ReactNode;
+  pulse?: boolean;
+  /** @deprecated eyebrows have no dot unless `pulse`; this does nothing */
+  quiet?: boolean;
+}) => <div className={cx("p-eyebrow", pulse && "is-pulse")}>{children}</div>;
 
 /** Section divider with the § medallion. */
 export const Seam = ({ caption }: { caption?: React.ReactNode }) => (

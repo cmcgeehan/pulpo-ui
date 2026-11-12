@@ -25,13 +25,14 @@
    Type
    ========================================================================== */
 .p-h1 { font-family: var(--p-display); font-size: var(--p-size-display); font-weight: 600; line-height: var(--p-line-tight); letter-spacing: var(--p-track-display); color: var(--p-fg-1); text-wrap: balance; margin: 0; }
-.p-h2 { font-family: var(--p-display); font-size: var(--p-size-headline); font-weight: 500; line-height: 1.06; letter-spacing: var(--p-track-headline); color: var(--p-fg-1); text-wrap: balance; margin: 0; }
+.p-h2 { font-family: var(--p-display); font-size: var(--p-size-headline); font-weight: 600; line-height: 1.04; letter-spacing: var(--p-track-headline); color: var(--p-fg-1); text-wrap: balance; margin: 0; }
 .p-h3 { font-family: var(--p-display); font-size: var(--p-size-title); font-weight: 600; line-height: 1.25; letter-spacing: var(--p-track-title); color: var(--p-fg-1); margin: 0; }
-.p-h4 { font-family: var(--p-display); font-size: var(--p-size-subtitle); font-weight: 500; line-height: 1.4; color: var(--p-fg-1); margin: 0; }
+.p-h4 { font-family: var(--p-display); font-size: var(--p-size-subtitle); font-weight: 600; line-height: 1.4; color: var(--p-fg-1); margin: 0; }
 .p-lede    { font-size: 17px; color: var(--p-fg-2); line-height: 1.6; max-width: 60ch; }
 .p-body    { font-size: var(--p-size-body); color: var(--p-fg-2); line-height: var(--p-line-loose); }
 .p-body-sm { font-size: var(--p-size-body-sm); color: var(--p-fg-2); line-height: 1.6; }
 .p-caption { font-size: var(--p-size-caption); color: var(--p-fg-3); }
+.p-meta    { font-size: 13px; line-height: 1.5; color: var(--p-fg-3); } /* sans metadata line, the site's caption-2 */
 .p-mono    { font-family: var(--p-mono); font-variant-numeric: tabular-nums; }
 
 /* Screenprint grain, like the site's illustrations. Put on the app root. Dark only. */
@@ -69,7 +70,7 @@
   align-items: center;
   gap: 10px;
 }
-.p-eyebrow::before {
+.p-eyebrow.is-pulse::before, .p-eyebrow.is-live::before {
   content: "";
   width: 6px; height: 6px;
   border-radius: 9999px;
@@ -85,7 +86,6 @@
 @media (prefers-reduced-motion: reduce) {
   .p-eyebrow.is-pulse::before { animation: none; }
 }
-.p-eyebrow.is-quiet::before { display: none; }
 
 /* SEAM — § medallion divider */
 .p-seam {
@@ -134,6 +134,17 @@
 .p-divider::before, .p-divider::after { content: ""; flex: 1; height: 1px; background: var(--p-rule-2); }
 .p-divider-mark { width: 7px; height: 7px; flex-shrink: 0; border: 1px solid var(--p-gold); border-radius: 1px; transform: rotate(45deg); }
 
+/* GRAD — the site's headline fade (cream to grey), for one phrase in a big heading */
+.p-grad { background: linear-gradient(90deg, var(--p-fg-1), var(--p-fg-3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* DASH — the site's short teal bar that tops a quote card */
+.p-dash { display: block; width: 40px; height: 2px; border-radius: 2px; background: var(--p-lume); }
+
+/* SPOT — an illustration on black. In dark its black melts into the canvas; hidden in light. Decorative: alt="". */
+.p-spot { display: block; width: 88px; height: auto; mix-blend-mode: lighten; }
+.p-spot.is-lg { width: min(280px, 60vw); }
+[data-theme="light"] .p-spot { display: none; } /* black-ground art has no light version; on paper it reads as a stray tile */
+
 /* serif italic accent — defaults to gold; .is-lume swaps to green */
 .p-serif { font-family: var(--p-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--p-gold); }
 .p-serif.is-lume { color: var(--p-lume); text-shadow: 0 0 24px var(--p-lume-30); }
@@ -147,8 +158,8 @@
   gap: 10px;
   font-family: var(--p-sans);
   font-weight: 600;
-  font-size: 13.5px;
-  padding: 9px 18px;
+  font-size: 14px;
+  padding: 10px 18px;
   border-radius: var(--p-radius-pill);
   border: none;
   cursor: pointer;
@@ -161,8 +172,8 @@
 .p-btn:active { transform: scale(.98); }
 .p-btn:focus-visible { outline: 2px solid var(--p-gold); outline-offset: 3px; }
 .p-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
-.p-btn-sm { padding: 7px 14px; font-size: 12.5px; }
-.p-btn-lg { padding: 12px 24px; font-size: 15px; }
+.p-btn-sm { padding: 8px 14px; font-size: 13px; }
+.p-btn-lg { padding: 12px 24px; font-size: 16px; }
 
 /* primary — flat gold pill */
 .p-btn-primary { background: var(--p-gold); color: var(--p-on-gold); }
@@ -334,8 +345,8 @@
 }
 .p-stat-num {
   font-family: var(--p-display);
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 500;
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--p-fg-1);
@@ -344,6 +355,9 @@
 .p-stat-num.is-gold { color: var(--p-gold); }
 .p-stat-num.is-lume { color: var(--p-lume); }
 .p-stat-num.is-sm { font-size: 30px; }
+.p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 28px 40px; }
+.p-stats .p-stat { gap: 8px; }
+.p-stat-note { font-size: 14px; line-height: 1.5; color: var(--p-fg-2); }
 .p-stat-label {
   font-family: var(--p-mono);
   font-size: var(--p-size-mono);

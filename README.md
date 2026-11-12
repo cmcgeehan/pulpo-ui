@@ -81,6 +81,7 @@ All three class files sit in `@layer base, components`, so app CSS and Tailwind 
 | Recessed panel | `.p-well` |
 | Clickable card | `<a class="p-card is-link">` or `<button class="p-card is-link">`, never a bare div |
 | Inputs | `.p-drop(.is-full/.is-over)` file drop (a `<label>` around the input), `.p-range(.is-lg)`, `.p-choice(.is-on/.is-sm)` radio-card (in a `role="radiogroup"`, each `role="radio"` with `aria-checked`) |
+| The site look | `.p-grad` (headline fade, one phrase), `.p-dash` (teal bar topping a quote card), `.p-spot(.is-lg)` (black-ground art from the site's `public/raven/`; hidden in light), `.p-meta` (sans metadata line), `.p-stats` > `.p-stat` (`.p-stat-num.is-lume/.is-gold` + `.p-stat-note`) |
 | Small marks | `.p-kbd` / `<Kbd>`, `.p-dot` (`is-lume/gold/pos/neg`, `is-pulse`), `.p-spin` (pair with text or `role="status"`), `.p-icon-btn(.is-sm)` (needs `aria-label`) |
 | Tones | `<Badge tone>` / `.p-badge.is-gold/.is-pos/.is-neg/.is-quiet/.is-solid`, `<Avatar tone size>` / `.p-avatar.is-sm/.is-lume`, `.p-alert.is-quiet`, `.p-stat-num.is-sm`, `.p-table.is-clickable/.is-dense`, `.p-tab:disabled` |
 | Toasts | `.p-toaster[role=status]` > `.p-toast` |
@@ -92,6 +93,10 @@ All three class files sit in `@layer base, components`, so app CSS and Tailwind 
 - Geist everywhere; the accent moment is `.p-serif` (Geist, synthesized italic like the site, in gold), one per heading.
 - Text on a gold/teal/red fill uses `--p-on-gold` / `--p-on-lume` / `--p-on-neg`, never `#fff`.
 - `--p-fg-4` is decorative only (dividers, disabled). Body text stops at `--p-fg-3`.
+
+## Upgrading from 0.2
+
+v0.3 matches heypulpo.com more closely: eyebrows have no dot unless `.is-pulse` / `<Eyebrow pulse>` (for something live), headings are 600, buttons are a size up, the console rail and header are flat on the canvas, and `.p-page-head` is the site's big section head. No classes were removed.
 
 ## Upgrading from 0.1
 
