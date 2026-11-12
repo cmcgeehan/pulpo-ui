@@ -32,9 +32,9 @@ export const Pill = ({ tone, className, ...rest }: React.HTMLAttributes<HTMLSpan
   <span {...rest} className={cx("p-pill", tone && `is-${tone}`, className)} />
 );
 
-/** Small non-interactive mono label. Teal by default; `quiet` for metadata. */
-export const Badge = ({ quiet, className, ...rest }: React.HTMLAttributes<HTMLSpanElement> & { quiet?: boolean }) => (
-  <span {...rest} className={cx("p-badge", quiet && "is-quiet", className)} />
+/** Small non-interactive mono label. Teal by default; `quiet` for metadata, `solid` for a gold fill. */
+export const Badge = ({ tone, quiet, className, ...rest }: React.HTMLAttributes<HTMLSpanElement> & { tone?: Exclude<Tone, "lume"> | "solid"; quiet?: boolean }) => (
+  <span {...rest} className={cx("p-badge", quiet ? "is-quiet" : tone && `is-${tone}`, className)} />
 );
 
 export type FieldProps = {
@@ -87,16 +87,19 @@ export const Eyebrow = ({ children, pulse, quiet }: { children?: React.ReactNode
   <div className={cx("p-eyebrow", pulse && "is-pulse", quiet && "is-quiet")}>{children}</div>
 );
 
-/** Section divider with the § medallion. */
-export const Seam = ({ caption }: { caption?: React.ReactNode }) => (
-  <div className="p-seam">
+/** Section divider with the § medallion. `inline` puts the caption on the hairline, for dense app pages. */
+export const Seam = ({ caption, inline }: { caption?: React.ReactNode; inline?: boolean }) => (
+  <div className={cx("p-seam", inline && "is-inline")}>
     {caption && <span className="p-seam-cap">{caption}</span>}
     <span className="p-seam-mark" />
   </div>
 );
 
-export const Avatar = ({ initials, gold }: { initials: string; gold?: boolean }) => (
-  <span className={cx("p-avatar", gold && "is-gold")} aria-hidden>
+export const Avatar = ({ initials, gold, tone, size }: { initials: string; gold?: boolean; tone?: "gold" | "lume"; size?: "sm" }) => (
+  <span className={cx("p-avatar", (gold || tone === "gold") && "is-gold", tone === "lume" && "is-lume", size && `is-${size}`)} aria-hidden>
     {initials}
   </span>
 );
+
+/** Keyboard hint, e.g. <Kbd>⌘K</Kbd>. */
+export const Kbd = ({ className, ...rest }: React.HTMLAttributes<HTMLElement>) => <kbd {...rest} className={cx("p-kbd", className)} />;

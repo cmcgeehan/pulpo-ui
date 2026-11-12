@@ -7,7 +7,7 @@ React fronts. Open `showcase.html` in a browser to see every piece in both theme
 ## Use it
 
 ```bash
-npm i github:cmcgeehan/pulpo-ui#v0.1.2
+npm i github:cmcgeehan/pulpo-ui#v0.2.0
 ```
 
 ```ts
@@ -53,6 +53,25 @@ a global `a { color: … }` recolours `<a class="p-btn">`, so put app element de
 
 Tailwind apps: use the tokens directly (`bg-[var(--p-surface)]`), or alias your theme
 colors to them in `@theme inline`.
+
+## Console pieces (v0.2)
+
+For internal tools with a nav rail. Classes, plain HTML, no JS:
+
+| Need | Class |
+|---|---|
+| App frame | `.p-shell` > `.p-rail` (`.p-rail-section`, `.p-rail-link.is-active`, `.p-rail-foot`) + `.p-app-header` + `.p-app-main` |
+| Page title row | `.p-page-head` (eyebrow, `h1`, `.p-page-sub`) + `.p-page-head-actions`; `.p-block-head` (h3 + meta) for sub-sections, `.p-block-meta` for small mono metadata |
+| Filters above a list | `.p-toolbar` + `.p-toolbar-spacer`; `.p-tabs.is-sm` with `.p-count` (or `<Tabs size="sm">`, items take `count`) |
+| Steps | `.p-steps` (vertical) or `.p-steps.is-row` (strip) > `.p-step.is-done/.is-now(.is-link)` > `.p-step-mark` + `.p-step-text` (`.p-step-label`, `.p-step-meta`) |
+| ⌘K palette | `.p-cmd-scrim` > `.p-cmd` > `.p-cmd-input`, `.p-cmd-list` (`.p-cmd-group`, `.p-cmd-row.is-on`), `.p-cmd-foot` |
+| Form modal | `.p-modal.is-flush` (+ `.is-lg` 720 / `.is-xl` 880) > `.p-modal-body` + `.p-modal-foot` |
+| Recessed panel | `.p-well` |
+| Clickable card | `.p-card.is-link` |
+| Inputs | `.p-drop(.is-full)` file drop, `.p-range(.is-lg)`, `.p-choice(.is-on)` radio-card |
+| Small marks | `.p-kbd` / `<Kbd>`, `.p-dot` (`is-lume/gold/pos/warn/neg`, `is-pulse`), `.p-spin`, `.p-icon-btn(.is-sm)` |
+| Tones | `.p-badge.is-gold/.is-pos/.is-neg/.is-solid`, `.p-avatar.is-sm/.is-lume`, `.p-alert.is-quiet`, `.p-stat-num.is-sm`, `.p-seam.is-inline`, `.p-table.is-clickable/.is-dense`, `.p-tab:disabled`, `.p-drop.is-over` (drag-over) |
+| Toasts | `.p-toaster` > `.p-toast` |
 
 ## Rules of the look
 

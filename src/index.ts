@@ -8,6 +8,7 @@ export {
   Card,
   Eyebrow,
   Field,
+  Kbd,
   Pill,
   Seam,
   type ButtonProps,

@@ -127,6 +127,105 @@
     <div class="p-alert is-neg"><div>Notion rejected the update. Nothing was saved.</div></div>
   </section>
 
+  <section class="sc-sec">
+    <div class="p-eyebrow">Console · p-shell, p-rail, p-app-header, p-page-head, p-toolbar</div>
+    <div class="p-shell" style="height:420px; border-radius:12px; box-shadow:inset 0 0 0 1px var(--p-rule-2)">
+      <nav class="p-rail" aria-label="Demo rail">
+        <div class="p-rail-section">Hiring</div>
+        <a class="p-rail-link is-active" href="#">Jobs <span class="count">12</span></a>
+        <a class="p-rail-link" href="#">Candidates <span class="count">348</span></a>
+        <a class="p-rail-link" href="#">Review setup</a>
+        <div class="p-rail-foot"><span class="p-caption">Ana · Pulpo</span></div>
+      </nav>
+      <header class="p-app-header">
+        <nav class="p-crumbs"><a href="#">Jobs</a><span class="p-crumbs-sep">/</span><span class="is-current">Dispatcher, Monterrey</span></nav>
+        <span class="p-toolbar-spacer"></span>
+        <button class="p-icon-btn" aria-label="Search">⌕</button>
+      </header>
+      <main class="p-app-main">
+        <div class="p-page-head">
+          <div><div class="p-eyebrow is-pulse">Live · 3 screening</div><h1>Jobs</h1><p class="p-page-sub">Every open role and where its candidates stand.</p></div>
+          <div class="p-page-head-actions"><button class="p-btn p-btn-primary p-btn-sm">New job <kbd class="p-kbd">N</kbd></button></div>
+        </div>
+        <div class="p-toolbar">
+          <div class="p-tabs is-sm" role="tablist" aria-label="Filter"><button class="p-tab is-active" role="tab" aria-selected="true">All<span class="p-count">12</span></button><button class="p-tab" role="tab" aria-selected="false">Live<span class="p-count">9</span></button></div>
+          <span class="p-toolbar-spacer"></span>
+          <span class="p-block-meta">Updated 2m ago</span>
+        </div>
+        <div class="sc-grid">
+          <div class="p-card p-card-compact is-link"><div class="p-stat"><span class="p-stat-num is-sm">48</span><span class="p-stat-label">Pass</span></div></div>
+          <div class="p-card p-card-compact is-link"><div class="p-stat"><span class="p-stat-num is-sm is-gold">17</span><span class="p-stat-label">Your queue</span></div></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Steps · p-steps, p-steps.is-row</div>
+    <ol class="p-steps is-row">
+      <li class="p-step is-done"><span class="p-step-mark">✓</span><span class="p-step-text"><span class="p-step-label">Job</span><span class="p-step-meta">Posted</span></span></li>
+      <li class="p-step is-now is-link"><span class="p-step-mark">02</span><span class="p-step-text"><span class="p-step-label">Import</span><span class="p-step-meta">Add candidates</span></span></li>
+      <li class="p-step"><span class="p-step-mark">03</span><span class="p-step-text"><span class="p-step-label">Screen</span><span class="p-step-meta">AI scores</span></span></li>
+      <li class="p-step"><span class="p-step-mark">04</span><span class="p-step-text"><span class="p-step-label">Book</span><span class="p-step-meta">WhatsApp</span></span></li>
+    </ol>
+    <div class="sc-grid">
+      <ol class="p-steps p-well">
+        <li class="p-step is-done is-link"><span class="p-step-mark">✓</span><span class="p-step-text"><span class="p-step-label">The role</span><span class="p-step-meta">Title, client</span></span></li>
+        <li class="p-step is-now"><span class="p-step-mark">02</span><span class="p-step-text"><span class="p-step-label">The posting</span><span class="p-step-meta">Seven sections</span></span></li>
+        <li class="p-step"><span class="p-step-mark">03</span><span class="p-step-text"><span class="p-step-label">Thresholds</span><span class="p-step-meta">Pass and review</span></span></li>
+      </ol>
+      <div class="p-well" style="display:grid; gap:12px">
+        <span class="p-label">Choice · p-choice · Range · p-range</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+          <button class="p-choice is-on"><strong>Full time</strong><em>40 h / week</em></button>
+          <button class="p-choice"><strong>Part time</strong><em>20 h / week</em></button>
+        </div>
+        <input class="p-range" type="range" min="0" max="100" value="62" aria-label="Pass threshold">
+        <div class="sc-row"><span class="p-spin"></span><span class="p-caption">p-spin · drafting the posting…</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Inputs · p-drop, p-kbd, p-dot, badge tones, small avatars</div>
+    <div class="sc-grid">
+      <label class="p-drop"><input type="file" multiple><span class="p-drop-mark">↑</span><strong>Drop resumes</strong><em>PDF, up to 50 at once</em></label>
+      <label class="p-drop is-full"><input type="file" multiple><span class="p-drop-mark">✓</span><strong>12 files ready</strong><em>Parsing on import</em></label>
+    </div>
+    <div class="sc-row">
+      <span class="p-badge"><span class="p-dot is-lume"></span>Pass</span>
+      <span class="p-badge is-gold">Review</span>
+      <span class="p-badge is-quiet">Discard</span>
+      <span class="p-badge is-pos">Hired</span>
+      <span class="p-badge is-neg">Failed</span>
+      <span class="p-badge is-solid">Booked</span>
+      <span class="p-avatar is-sm">AR</span><span class="p-avatar is-sm is-gold">LO</span><span class="p-avatar is-sm is-lume">MG</span>
+      <kbd class="p-kbd">⌘K</kbd><kbd class="p-kbd">G</kbd><kbd class="p-kbd">J</kbd>
+      <span class="sc-row"><span class="p-dot"></span><span class="p-dot is-lume is-pulse"></span><span class="p-dot is-gold"></span><span class="p-dot is-pos"></span><span class="p-dot is-warn"></span><span class="p-dot is-neg"></span></span>
+    </div>
+    <div class="p-alert is-quiet"><div>p-alert is-quiet · No resume yet, so this one won't be screened.</div></div>
+    <div class="p-seam is-inline"><span class="p-seam-cap">p-seam is-inline</span><span class="p-seam-mark"></span></div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Overlays · p-cmd, p-modal.is-flush (shown in place)</div>
+    <div class="sc-grid">
+      <div class="p-cmd" style="animation:none">
+        <div class="p-cmd-input"><span aria-hidden="true">⌕</span><input placeholder="Jump to a job, candidate or action" aria-label="Command"></div>
+        <div class="p-cmd-list">
+          <div class="p-cmd-group">Jobs</div>
+          <div class="p-cmd-row is-on"><span class="p-cmd-ico">#</span><span class="p-cmd-label">Dispatcher</span><span class="p-cmd-hint">Monterrey · 48 candidates</span><span class="p-cmd-keys"><kbd class="p-kbd">↵</kbd></span></div>
+          <div class="p-cmd-row"><span class="p-cmd-ico">+</span><span class="p-cmd-label">New job</span><span class="p-cmd-hint">Start from a JD</span><span class="p-cmd-keys"><kbd class="p-kbd">N</kbd></span></div>
+        </div>
+        <div class="p-cmd-foot"><span><kbd class="p-kbd">↑↓</kbd> move</span><span><kbd class="p-kbd">↵</kbd> open</span><span><kbd class="p-kbd">esc</kbd> close</span></div>
+      </div>
+      <div class="p-modal is-flush" style="animation:none; max-height:none">
+        <div class="p-modal-body"><h3 class="p-h4">Overrule the screen?</h3><p class="p-body-sm" style="margin:0">Say why, so the screener learns from it.</p><textarea class="p-textarea" aria-label="Why"></textarea></div>
+        <div class="p-modal-foot"><button class="p-btn p-btn-ghost p-btn-sm">Cancel</button><button class="p-btn p-btn-primary p-btn-sm">Overrule</button></div>
+      </div>
+    </div>
+  </section>
+
   <div class="p-seam"><span class="p-seam-cap">§ end</span><span class="p-seam-mark"></span></div>
 </main>
 <script>
