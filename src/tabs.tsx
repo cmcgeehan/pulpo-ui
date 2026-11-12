@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { cx } from "./components";
 
-export type TabItem<T extends string> = { value: T; label: React.ReactNode };
+export type TabItem<T extends string> = { value: T; label: React.ReactNode; count?: number | null };
 
 /** Pill toggle. Arrow keys move between tabs (WAI-ARIA tabs pattern). */
 export function Tabs<T extends string>({
@@ -11,14 +11,17 @@ export function Tabs<T extends string>({
   value,
   onChange,
   label,
+  size,
 }: {
   items: TabItem<T>[];
   value: T;
   onChange: (v: T) => void;
   label: string;
+  size?: "sm";
 }) {
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.altKey || e.metaKey || e.ctrlKey) return;
+    // Modified arrows belong to the app (e.g. Talent's ⇧← / ⇧→ decisions), not the tabs.
+    if (e.altKey || e.metaKey || e.ctrlKey || e.shiftKey) return;
     const i = items.findIndex((t) => t.value === value);
     const n = items.length;
     const to = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
@@ -29,7 +32,7 @@ export function Tabs<T extends string>({
     (e.currentTarget.querySelector(`[data-value="${CSS.escape(next.value)}"]`) as HTMLElement | null)?.focus();
   };
   return (
-    <div className="p-tabs" role="tablist" aria-label={label} onKeyDown={onKeyDown}>
+    <div className={cx("p-tabs", size && `is-${size}`)} role="tablist" aria-label={label} onKeyDown={onKeyDown}>
       {items.map((t) => (
         <button
           key={t.value}
@@ -42,6 +45,8 @@ export function Tabs<T extends string>({
           onClick={() => onChange(t.value)}
         >
           {t.label}
+          {/* The space keeps the accessible name "Live 9", not "Live9". */}
+          {t.count != null && <>{" "}<span className="p-count">{t.count}</span></>}
         </button>
       ))}
     </div>

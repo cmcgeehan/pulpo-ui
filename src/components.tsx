@@ -32,10 +32,18 @@ export const Pill = ({ tone, className, ...rest }: React.HTMLAttributes<HTMLSpan
   <span {...rest} className={cx("p-pill", tone && `is-${tone}`, className)} />
 );
 
-/** Small non-interactive mono label. Teal by default; `quiet` for metadata. */
-export const Badge = ({ quiet, className, ...rest }: React.HTMLAttributes<HTMLSpanElement> & { quiet?: boolean }) => (
-  <span {...rest} className={cx("p-badge", quiet && "is-quiet", className)} />
-);
+export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
+  /** Teal (lume) by default; `quiet` for metadata, `solid` for a gold fill. */
+  tone?: Exclude<Tone, "lume"> | "solid";
+  /** @deprecated use tone="quiet" */
+  quiet?: boolean;
+};
+
+/** Small non-interactive mono label. */
+export const Badge = ({ tone, quiet, className, ...rest }: BadgeProps) => {
+  const t = tone ?? (quiet ? "quiet" : undefined);
+  return <span {...rest} className={cx("p-badge", t && `is-${t}`, className)} />;
+};
 
 export type FieldProps = {
   label: React.ReactNode;
@@ -95,8 +103,30 @@ export const Seam = ({ caption }: { caption?: React.ReactNode }) => (
   </div>
 );
 
-export const Avatar = ({ initials, gold }: { initials: string; gold?: boolean }) => (
-  <span className={cx("p-avatar", gold && "is-gold")} aria-hidden>
-    {initials}
-  </span>
+/** A section label on a hairline, for dense app pages. */
+export const Divider = ({ children }: { children?: React.ReactNode }) => (
+  <div className="p-divider">
+    <span className="p-divider-mark" aria-hidden />
+    {children}
+  </div>
 );
+
+export type AvatarProps = {
+  initials: string;
+  tone?: "gold" | "lume";
+  /** @deprecated use tone="gold" */
+  gold?: boolean;
+  size?: "sm";
+};
+
+export const Avatar = ({ initials, tone, gold, size }: AvatarProps) => {
+  const t = tone ?? (gold ? "gold" : undefined);
+  return (
+    <span className={cx("p-avatar", t && `is-${t}`, size && `is-${size}`)} aria-hidden>
+      {initials}
+    </span>
+  );
+};
+
+/** Keyboard hint, e.g. <Kbd>⌘K</Kbd>. */
+export const Kbd = ({ className, ...rest }: React.HTMLAttributes<HTMLElement>) => <kbd {...rest} className={cx("p-kbd", className)} />;
