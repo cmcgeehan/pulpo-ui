@@ -45,7 +45,8 @@ export function Tabs<T extends string>({
           onClick={() => onChange(t.value)}
         >
           {t.label}
-          {t.count != null && <span className="p-count">{t.count}</span>}
+          {/* The space keeps the accessible name "Live 9", not "Live9". */}
+          {t.count != null && <>{" "}<span className="p-count">{t.count}</span></>}
         </button>
       ))}
     </div>

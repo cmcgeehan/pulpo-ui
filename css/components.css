@@ -4,6 +4,8 @@
    rule beats it, element selectors included (a global `a { color }` recolours link buttons), so
    keep app element defaults in @layer base too. With Tailwind, import this after it. */
 
+@layer base, components;
+
 @layer base {
   body {
     background: var(--p-bg);
@@ -127,6 +129,11 @@
   white-space: nowrap;
 }
 
+/* DIVIDER — a section label on a hairline, for dense app pages */
+.p-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; font-family: var(--p-mono); font-size: var(--p-size-mono); letter-spacing: var(--p-track-mono); text-transform: uppercase; color: var(--p-fg-3); }
+.p-divider::before, .p-divider::after { content: ""; flex: 1; height: 1px; background: var(--p-rule-2); }
+.p-divider-mark { width: 7px; height: 7px; flex-shrink: 0; border: 1px solid var(--p-gold); border-radius: 1px; transform: rotate(45deg); }
+
 /* serif italic accent — defaults to gold; .is-lume swaps to green */
 .p-serif { font-family: var(--p-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--p-gold); }
 .p-serif.is-lume { color: var(--p-lume); text-shadow: 0 0 24px var(--p-lume-30); }
@@ -177,6 +184,19 @@
   .p-btn, .p-btn:hover, .p-btn:active { transition: none; transform: none; }
 }
 
+/* ICON BUTTON — square, quiet. Give it an aria-label. */
+.p-icon-btn {
+  position: relative;
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px; padding: 0;
+  border: none; border-radius: var(--p-radius-md);
+  background: transparent; color: var(--p-fg-2);
+  cursor: pointer;
+  transition: background var(--p-d-fast), color var(--p-d-fast);
+}
+.p-icon-btn:hover { background: var(--p-rule-1); color: var(--p-fg-1); }
+.p-icon-btn.is-sm { width: 24px; height: 24px; border-radius: 6px; }
+
 /* PILL */
 .p-pill {
   font-family: var(--p-mono);
@@ -214,219 +234,39 @@
   border-radius: var(--p-radius-pill);
   color: var(--p-lume);
   background: var(--p-lume-15);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
 }
 .p-badge.is-quiet { color: var(--p-fg-3); background: var(--p-rule-1); }
+.p-badge.is-gold  { color: var(--p-gold); background: var(--p-gold-08); }
+.p-badge.is-pos   { color: var(--p-pos);  background: var(--p-pos-08); }
+.p-badge.is-neg   { color: var(--p-neg);  background: var(--p-neg-08); }
+.p-badge.is-solid { color: var(--p-on-gold); background: var(--p-gold); }
 
-/* ==========================================================================
-   Pulpo · Forms & Inputs
-   ========================================================================== */
+/* COUNT — a number beside a label (tabs, rail links) */
+.p-count { font-family: var(--p-mono); font-size: 10.5px; color: var(--p-fg-3); font-variant-numeric: tabular-nums; }
 
-.p-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  position: relative;
+/* KBD — keyboard hint. Inside a filled button it takes the button's colour. */
+.p-kbd {
+  font-family: var(--p-mono); font-size: 10px; line-height: 1;
+  padding: 3px 5px; border-radius: 5px;
+  background: var(--p-rule-1); color: var(--p-fg-3);
+  box-shadow: inset 0 0 0 1px var(--p-rule-2);
+  white-space: nowrap;
 }
-.p-label {
-  font-family: var(--p-mono);
-  font-size: var(--p-size-mono);
-  letter-spacing: var(--p-track-mono);
-  text-transform: uppercase;
-  color: var(--p-fg-2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.p-label .p-required { color: var(--p-gold); }
-.p-help {
-  font-family: var(--p-sans);
-  font-size: 12px;
-  color: var(--p-fg-3);
-  letter-spacing: 0.005em;
-}
-.p-error {
-  font-family: var(--p-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--p-neg);
-}
+.p-btn-primary .p-kbd, .p-btn-danger .p-kbd { background: color-mix(in srgb, currentColor 16%, transparent); color: inherit; box-shadow: none; }
 
-/* TEXT INPUT */
-.p-input,
-.p-textarea,
-.p-select {
-  font-family: var(--p-sans);
-  font-size: 13.5px;
-  color: var(--p-fg-1);
-  background: var(--p-input-bg);
-  border: none;
-  box-shadow: inset 0 0 0 1px var(--p-input-rule);
-  border-radius: var(--p-radius-md);
-  padding: 10px 13px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: box-shadow var(--p-d-fast), background var(--p-d-fast);
-  outline: 2px solid transparent; /* forced-colors keeps a focus ring; box-shadow is dropped there */
-}
-.p-input::placeholder, .p-textarea::placeholder { color: var(--p-fg-3); }
-.p-input:hover, .p-textarea:hover, .p-select:hover { box-shadow: inset 0 0 0 1px var(--p-fg-3); }
-.p-input:focus, .p-textarea:focus, .p-select:focus {
-  box-shadow: inset 0 0 0 1.5px var(--p-input-focus);
-}
-.p-input:disabled, .p-textarea:disabled, .p-select:disabled { opacity: 0.4; cursor: not-allowed; }
-.p-input.is-error, .p-textarea.is-error, .p-select.is-error {
-  box-shadow: inset 0 0 0 1px var(--p-neg);
-}
-.p-textarea { resize: vertical; min-height: 96px; }
-
-/* SELECT — custom chevron */
-.p-select {
-  appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--p-fg-2) 50%),
-    linear-gradient(-45deg, transparent 50%, var(--p-fg-2) 50%);
-  background-position:
-    calc(100% - 18px) 50%,
-    calc(100% - 13px) 50%;
-  background-size: 5px 5px;
-  background-repeat: no-repeat;
-  padding-right: 36px;
-}
-
-/* CHECKBOX */
-.p-check {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  font-family: var(--p-sans);
-  font-size: 14px;
-  color: var(--p-fg-1);
-  user-select: none;
-}
-.p-check input { position: absolute; opacity: 0; pointer-events: none; }
-.p-check-box {
-  width: 18px; height: 18px;
-  border-radius: 4px;
-  background: var(--p-surface);
-  box-shadow: inset 0 0 0 1px var(--p-rule-3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--p-d-fast);
-}
-.p-check input:checked ~ .p-check-box {
-  background: var(--p-gold);
-  box-shadow: inset 0 0 0 1px var(--p-gold);
-}
-.p-check input:checked ~ .p-check-box::after {
-  content: "";
-  width: 5px; height: 9px;
-  border: solid var(--p-on-gold);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) translate(-1px, -1px);
-}
-.p-check:hover .p-check-box { box-shadow: inset 0 0 0 1px var(--p-fg-3); }
-.p-check input:focus-visible ~ .p-check-box {
-  box-shadow: inset 0 0 0 1px var(--p-gold), 0 0 0 3px var(--p-gold-15);
-}
-
-/* RADIO */
-.p-radio {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  font-family: var(--p-sans);
-  font-size: 14px;
-  color: var(--p-fg-1);
-  user-select: none;
-}
-.p-radio, .p-switch { position: relative; }
-.p-radio input { position: absolute; opacity: 0; pointer-events: none; }
-.p-radio input:focus-visible ~ .p-radio-dot, .p-switch input:focus-visible ~ .p-switch-track { outline: 2px solid var(--p-gold); outline-offset: 2px; }
-.p-radio-dot {
-  width: 18px; height: 18px;
-  border-radius: 9999px;
-  background: var(--p-surface);
-  box-shadow: inset 0 0 0 1px var(--p-rule-3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--p-d-fast);
-}
-.p-radio input:checked ~ .p-radio-dot { box-shadow: inset 0 0 0 1px var(--p-gold); }
-.p-radio input:checked ~ .p-radio-dot::after {
-  content: "";
-  width: 8px; height: 8px;
-  border-radius: 9999px;
-  background: var(--p-gold);
-}
-.p-radio:hover .p-radio-dot { box-shadow: inset 0 0 0 1px var(--p-fg-3); }
-
-/* SWITCH */
-.p-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  font-family: var(--p-sans);
-  font-size: 14px;
-  color: var(--p-fg-1);
-  user-select: none;
-}
-.p-switch input { position: absolute; opacity: 0; pointer-events: none; }
-.p-switch-track {
-  width: 38px; height: 22px;
-  border-radius: 9999px;
-  background: var(--p-raised);
-  box-shadow: inset 0 0 0 1px var(--p-rule-3);
-  position: relative;
-  transition: all var(--p-d-base) var(--p-ease-out);
-  flex-shrink: 0;
-}
-.p-switch-track::after {
-  content: "";
-  position: absolute;
-  left: 2px; top: 2px;
-  width: 16px; height: 16px;
-  border-radius: 9999px;
-  background: var(--p-fg-2);
-  transition: transform var(--p-d-base) var(--p-ease-out), background var(--p-d-base);
-}
-.p-switch input:checked ~ .p-switch-track {
-  background: var(--p-gold-30);
-  box-shadow: inset 0 0 0 1px var(--p-gold-50);
-}
-.p-switch input:checked ~ .p-switch-track::after {
-  transform: translateX(16px);
-  background: var(--p-gold);
-}
-
-/* SEARCH — input with leading icon */
-.p-search {
-  position: relative;
-}
-.p-search .p-input { padding-left: 40px; }
-.p-search-icon {
-  position: absolute;
-  left: 14px; top: 50%;
-  transform: translateY(-50%);
-  width: 14px; height: 14px;
-  color: var(--p-fg-3);
-  pointer-events: none;
-}
-
-/* INLINE COMBO — input + button group */
-.p-input-group {
-  display: flex;
-  gap: 8px;
-}
-.p-input-group .p-input { flex: 1; }
+/* DOT — status dot for rows and badges */
+.p-dot { display: inline-block; width: 6px; height: 6px; border-radius: 9999px; background: var(--p-fg-3); flex-shrink: 0; }
+.p-dot.is-lume { background: var(--p-lume); box-shadow: 0 0 6px var(--p-lume-soft); }
+.p-dot.is-gold { background: var(--p-gold); }
+.p-dot.is-pos  { background: var(--p-pos); }
+.p-dot.is-neg  { background: var(--p-neg); }
+.p-dot.is-pulse { animation: p-blink 4.2s ease-in-out infinite; }
+@keyframes p-blink { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .p-dot.is-pulse { animation: none; } }
 
 /* ==========================================================================
    Pulpo · Cards, Stats, Nav, Footer
@@ -459,6 +299,19 @@
 /* CARD — compact */
 .p-card-compact { padding: 18px 20px; }
 
+/* CARD — clickable. Put it on an <a> or <button>; it resets their defaults. */
+.p-card.is-link {
+  display: block; width: 100%; box-sizing: border-box;
+  border: none; font: inherit; color: inherit; text-align: left; text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--p-d-base) var(--p-ease-out), box-shadow var(--p-d-base) var(--p-ease-out);
+}
+.p-card.is-link:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--p-gold-30), var(--p-shadow-2); }
+@media (prefers-reduced-motion: reduce) { .p-card.is-link:hover { transform: none; } }
+
+/* WELL — a recessed panel inside a card or page */
+.p-well { padding: 14px 15px; border-radius: var(--p-radius-lg); background: var(--p-bg-2); box-shadow: inset 0 0 0 1px var(--p-rule-1); }
+
 /* CARD monogram corner — small § in top-right */
 .p-card-corner {
   position: absolute;
@@ -490,6 +343,7 @@
 }
 .p-stat-num.is-gold { color: var(--p-gold); }
 .p-stat-num.is-lume { color: var(--p-lume); }
+.p-stat-num.is-sm { font-size: 30px; }
 .p-stat-label {
   font-family: var(--p-mono);
   font-size: var(--p-size-mono);
@@ -536,6 +390,9 @@
 .p-table tbody tr { transition: background var(--p-d-fast); }
 .p-table tbody tr:hover { background: var(--p-rule-1); }
 .p-table .num { font-variant-numeric: tabular-nums; text-align: right; }
+.p-table.is-clickable tbody tr { cursor: pointer; }
+.p-table.is-dense thead th { padding: 8px 14px; background: transparent; }
+.p-table.is-dense tbody td { padding: 8px 14px; line-height: 1.4; }
 
 /* TABS */
 .p-tabs {
@@ -564,6 +421,11 @@
 }
 .p-tab:hover { color: var(--p-fg-1); }
 .p-tab.is-active { background: var(--p-lume); color: var(--p-on-lume); }
+.p-tab:disabled { opacity: .45; cursor: not-allowed; }
+.p-tab:disabled:not(.is-active):hover { color: var(--p-fg-2); }
+.p-tab .p-count { margin-left: 2px; }
+.p-tab.is-active .p-count { color: inherit; }
+.p-tabs.is-sm .p-tab { padding: 5px 12px; font-size: 12.5px; }
 
 /* BREADCRUMBS */
 .p-crumbs {
@@ -583,7 +445,7 @@
 }
 .p-crumbs a:hover { color: var(--p-fg-1); }
 .p-crumbs .p-crumbs-sep { color: var(--p-rule-3); }
-.p-crumbs .is-current { color: var(--p-fg-1); }
+.p-crumbs .is-current { color: var(--p-fg-1); max-width: 26ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* MODAL */
 .p-modal-scrim {
@@ -594,7 +456,9 @@
   z-index: 100;
   display: flex; align-items: center; justify-content: center;
   padding: 24px;
+  animation: p-fade var(--p-d-fast) ease-out;
 }
+.p-modal-scrim.is-top { align-items: flex-start; padding-top: 11vh; z-index: 150; }
 .p-modal {
   background: var(--p-raised);
   border-radius: var(--p-radius-xl);
@@ -603,6 +467,7 @@
   width: 100%;
   box-shadow: inset 0 1px 0 var(--p-gold), inset 0 0 0 1px var(--p-rule-2), var(--p-shadow-3);
   position: relative;
+  animation: p-rise var(--p-d-base) var(--p-ease-out);
 }
 .p-modal h3 { margin: 0 0 8px 0; }
 .p-modal-close {
@@ -622,6 +487,16 @@
 }
 .p-modal-close:hover { background: var(--p-rule-1); color: var(--p-fg-1); }
 .p-modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+.p-modal.is-lg { max-width: 720px; }
+.p-modal.is-xl { max-width: 880px; }
+/* Flush: head and foot stay put, the body scrolls. */
+.p-modal.is-flush { padding: 0; display: flex; flex-direction: column; max-height: 88vh; overflow: hidden; }
+.p-modal-head { flex: none; padding: 22px 56px 16px 26px; border-bottom: 1px solid var(--p-rule-1); }
+.p-modal-body { flex: 1; overflow-y: auto; padding: 26px; display: flex; flex-direction: column; gap: 17px; }
+.p-modal-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 26px; border-top: 1px solid var(--p-rule-1); }
+@keyframes p-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes p-rise { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .p-modal, .p-modal-scrim { animation: none; } }
 
 /* DRAWER */
 .p-drawer {
@@ -665,6 +540,11 @@
 .p-toast.is-lume::before { background: var(--p-lume); }
 .p-toast-title { font-weight: 500; margin-bottom: 2px; }
 .p-toast-body { color: var(--p-fg-2); font-size: 13px; line-height: 1.5; }
+/* TOASTER — fixed stack. Give it role="status" (aria-live) so toasts are announced. */
+.p-toaster { position: fixed; right: 22px; bottom: 22px; z-index: 200; display: flex; flex-direction: column; gap: 9px; }
+.p-toaster .p-toast { min-width: 268px; animation: p-toast-in var(--p-d-base) var(--p-ease-out); }
+@keyframes p-toast-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .p-toaster .p-toast { animation: none; } }
 
 /* ALERT — inline */
 .p-alert {
@@ -682,6 +562,7 @@
 .p-alert.is-lume { background: var(--p-lume-08); box-shadow: inset 0 0 0 1px var(--p-lume-30); }
 .p-alert.is-neg { background: var(--p-neg-08); box-shadow: inset 0 0 0 1px var(--p-neg-30); }
 .p-alert.is-pos { background: var(--p-pos-08); box-shadow: inset 0 0 0 1px var(--p-pos-30); }
+.p-alert.is-quiet { background: var(--p-sunk); box-shadow: inset 0 0 0 1px var(--p-rule-1); color: var(--p-fg-2); }
 .p-alert-icon {
   width: 18px; height: 18px;
   flex-shrink: 0;
@@ -831,6 +712,11 @@
   .p-loading-dot { animation: none; }
 }
 
+/* SPINNER — inline busy mark. Pair it with text or role="status" + a label. */
+.p-spin { width: 18px; height: 18px; flex-shrink: 0; border-radius: 9999px; border: 2px solid var(--p-rule-2); border-top-color: var(--p-lume); animation: p-spin .8s linear infinite; }
+@keyframes p-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .p-spin { animation-duration: 2.4s; } }
+
 /* SKELETON */
 .p-skel {
   display: block;
@@ -865,6 +751,8 @@
 .p-avatar-stack { display: inline-flex; }
 .p-avatar-stack .p-avatar { margin-left: -10px; box-shadow: inset 0 0 0 1px var(--p-rule-3), 0 0 0 2px var(--p-bg); }
 .p-avatar-stack .p-avatar:first-child { margin-left: 0; }
+.p-avatar.is-lume { background: var(--p-lume-08); box-shadow: inset 0 0 0 1px var(--p-lume-30); color: var(--p-lume); }
+.p-avatar.is-sm { width: 26px; height: 26px; font-size: 9.5px; }
 
 /* PROGRESS */
 .p-progress {
@@ -898,83 +786,4 @@
   align-self: center;
 }
 .p-kv dd { color: var(--p-fg-1); margin: 0; }
-
-/* ==========================================================================
-   Pulpo · Small marks and variants — kbd, dot, spinner, tones, sizes, modal
-   layouts, toaster. Console layout pieces live in console.css.
-   ========================================================================== */
-
-/* KBD — keyboard hint. Inside a button it takes the button's colour. */
-.p-kbd {
-  font-family: var(--p-mono); font-size: 9.5px; line-height: 1;
-  padding: 3px 5px; border-radius: 5px;
-  background: var(--p-rule-1); color: var(--p-fg-3);
-  box-shadow: inset 0 0 0 1px var(--p-rule-2);
-  white-space: nowrap;
-}
-.p-btn-primary .p-kbd, .p-btn-danger .p-kbd { background: color-mix(in srgb, currentColor 16%, transparent); color: inherit; box-shadow: none; }
-
-/* DOT — status dot for rows and badges */
-.p-dot { display: inline-block; width: 6px; height: 6px; border-radius: 9999px; background: var(--p-fg-3); flex-shrink: 0; }
-.p-dot.is-lume  { background: var(--p-lume); box-shadow: 0 0 6px var(--p-lume-soft); }
-.p-dot.is-gold  { background: var(--p-gold); }
-.p-dot.is-pos   { background: var(--p-pos); }
-.p-dot.is-warn  { background: var(--p-warn); }
-.p-dot.is-neg   { background: var(--p-neg); }
-.p-dot.is-pulse { animation: p-pulse 4.2s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .p-dot.is-pulse { animation: none; } }
-
-/* Tone + size variants for existing pieces */
-.p-badge { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.p-badge.is-gold { color: var(--p-gold); background: var(--p-gold-08); }
-.p-badge.is-pos  { color: var(--p-pos);  background: var(--p-pos-08); }
-.p-badge.is-neg  { color: var(--p-neg);  background: var(--p-neg-08); }
-.p-badge.is-solid { color: var(--p-on-gold); background: var(--p-gold); }
-.p-avatar.is-sm { width: 26px; height: 26px; font-size: 9.5px; }
-.p-avatar.is-lume { background: var(--p-lume-08); box-shadow: inset 0 0 0 1px var(--p-lume-30); color: var(--p-lume); }
-.p-stat-num.is-sm { font-size: 30px; }
-.p-tabs.is-sm .p-tab { padding: 5px 12px; font-size: 12.5px; }
-.p-tab:disabled { opacity: .45; cursor: not-allowed; }
-.p-tab:disabled:hover { color: var(--p-fg-2); }
-.p-table.is-dense thead th { padding: 8px 14px; background: transparent; }
-.p-table.is-dense tbody td { padding: 8px 14px; line-height: 1.4; }
-.p-tab .p-count { margin-left: 7px; font-family: var(--p-mono); font-size: 10px; opacity: .7; font-variant-numeric: tabular-nums; }
-.p-alert.is-quiet { background: var(--p-sunk); box-shadow: inset 0 0 0 1px var(--p-rule-1); color: var(--p-fg-2); }
-.p-table.is-clickable tbody tr { cursor: pointer; }
-.p-card.is-link { cursor: pointer; transition: transform var(--p-d-base) var(--p-ease-out), box-shadow var(--p-d-base) var(--p-ease-out); }
-.p-card.is-link:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--p-gold-30), var(--p-shadow-2); }
-@media (prefers-reduced-motion: reduce) { .p-card.is-link:hover { transform: none; } }
-
-/* SEAM — inline: a section label on a hairline, for dense app pages */
-.p-seam.is-inline { height: auto; margin: 16px 0; gap: 10px; }
-.p-seam.is-inline::before, .p-seam.is-inline::after { background: var(--p-rule-2); }
-.p-seam.is-inline .p-seam-cap { position: static; transform: none; order: 2; color: var(--p-fg-3); letter-spacing: .16em; }
-.p-seam.is-inline .p-seam-mark { order: 1; width: 8px; height: 8px; margin: 0; border-color: var(--p-gold); transform: rotate(45deg); border-radius: 1px; }
-.p-seam.is-inline .p-seam-mark::before { display: none; }
-.p-seam.is-inline::after { order: 3; }
-
-
-/* MODAL — sizes and a flush layout (head/body/foot) for forms that scroll */
-.p-modal-scrim { animation: p-fade var(--p-d-fast) ease-out; }
-.p-modal { animation: p-rise var(--p-d-base) var(--p-ease-out); }
-.p-modal.is-lg { max-width: 720px; }
-.p-modal.is-xl { max-width: 880px; }
-.p-modal.is-flush { padding: 0; display: flex; flex-direction: column; max-height: 88vh; overflow: hidden; }
-.p-modal-body { flex: 1; overflow-y: auto; padding: 26px; display: flex; flex-direction: column; gap: 17px; }
-.p-modal-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 26px; border-top: 1px solid var(--p-rule-1); }
-@keyframes p-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes p-rise { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: none; } }
-
-/* TOASTER — fixed stack for .p-toast */
-.p-toaster { position: fixed; right: 22px; bottom: 22px; z-index: 200; display: flex; flex-direction: column; gap: 9px; }
-.p-toaster .p-toast { min-width: 268px; animation: p-toast-in var(--p-d-base) var(--p-ease-out); }
-@keyframes p-toast-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
-
-
-/* SPINNER — inline busy mark */
-.p-spin { width: 18px; height: 18px; flex-shrink: 0; border-radius: 9999px; border: 2px solid var(--p-rule-2); border-top-color: var(--p-gold); animation: p-spin .8s linear infinite; }
-@keyframes p-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .p-spin, .p-modal, .p-modal-scrim, .p-toaster .p-toast { animation: none; }
-}
 }

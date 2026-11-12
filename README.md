@@ -20,6 +20,7 @@ transpilePackages: ["@pulpo/ui"],
 import "./globals.css";
 import "@pulpo/ui/tokens.css";
 import "@pulpo/ui/components.css";
+import "@pulpo/ui/forms.css";
 import "@pulpo/ui/console.css"; // apps with a nav rail (shell, palette, steps, …)
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeScript } from "@pulpo/ui";
@@ -55,28 +56,38 @@ a global `a { color: … }` recolours `<a class="p-btn">`, so put app element de
 Tailwind apps: use the tokens directly (`bg-[var(--p-surface)]`), or alias your theme
 colors to them in `@theme inline`.
 
-## Console pieces (v0.2)
+## Files
 
-For internal tools with a nav rail. Import `@pulpo/ui/console.css` after `components.css`. Classes, plain HTML, no JS:
+| Import | What |
+|---|---|
+| `tokens.css` | Colours, type, space, radius, motion (dark default, light via `data-theme="light"`) |
+| `components.css` | Type, buttons, pills, badges, cards, wells, tables, tabs, modals, toasts, alerts, small marks |
+| `forms.css` | Fields, inputs, select, check, radio, switch, search, choice cards, range, drop zone |
+| `console.css` | Internal-tool layout: app shell, rail, page head, toolbar, steps, ⌘K palette. Desktop only (≥ 900px) |
+
+All three class files sit in `@layer base, components`, so app CSS and Tailwind utilities win.
+
+## Console pieces (v0.2)
 
 | Need | Class |
 |---|---|
-| App frame | `.p-shell` > `.p-rail` (`.p-rail-section`, `.p-rail-link.is-active`, `.p-rail-foot`) + `.p-app-header` + `.p-app-main` |
-| Page title row | `.p-page-head` (eyebrow, `h1`, `.p-page-sub`) + `.p-page-head-actions`; `.p-block-head` (h3 + meta) for sub-sections, `.p-block-meta` for small mono metadata |
-| Filters above a list | `.p-toolbar` + `.p-toolbar-spacer`; `.p-tabs.is-sm` with `.p-count` (or `<Tabs size="sm">`, items take `count`) |
-| Steps | `.p-steps` (vertical) or `.p-steps.is-row` (strip) > `.p-step.is-done/.is-now(.is-link)` > `.p-step-mark` + `.p-step-text` (`.p-step-label`, `.p-step-meta`) |
-| ⌘K palette | `.p-cmd-scrim` > `.p-cmd` > `.p-cmd-input`, `.p-cmd-list` (`.p-cmd-group`, `.p-cmd-row.is-on`), `.p-cmd-foot` |
-| Form modal | `.p-modal.is-flush` (+ `.is-lg` 720 / `.is-xl` 880) > `.p-modal-body` + `.p-modal-foot` |
+| App frame | `.p-shell` > `.p-rail` (`.p-rail-section`, `.p-rail-link[aria-current="page"]` with `.p-rail-ico` + `.p-count`, `.p-rail-foot`) + `.p-app-header` + `.p-app-main` |
+| Page title row | `.p-page-head` (eyebrow, `h1`, `.p-page-sub`) + `.p-page-head-actions`; `.p-block-head` (h3 + `.p-block-meta`) for sub-sections |
+| Filters above a list | `.p-toolbar` + `.p-toolbar-spacer`; `<Tabs size="sm">` (items take `count`) or `.p-tabs.is-sm` > `.p-tab` + `.p-count` |
+| Steps | `.p-steps` (vertical) or `.p-steps.is-row` (strip) > `.p-step.is-done/.is-now` > `.p-step-mark` + `.p-step-text` (`.p-step-label`, `.p-step-meta`). Clickable step: `<li><button class="p-step is-link">` |
+| ⌘K palette | `.p-modal-scrim.is-top` > `.p-modal.is-flush.p-cmd[role=dialog][aria-modal=true]` > `.p-cmd-input` (combobox), `.p-cmd-list` (listbox: `.p-cmd-group`, `.p-cmd-row.is-on[aria-selected=true]`), `.p-cmd-foot` |
+| Form modal | `.p-modal.is-flush` (+ `.is-lg` 720 / `.is-xl` 880) > `.p-modal-head` + `.p-modal-body` (scrolls) + `.p-modal-foot` |
+| Section label | `<Divider>` / `.p-divider` > `.p-divider-mark` + text |
 | Recessed panel | `.p-well` |
-| Clickable card | `.p-card.is-link` |
-| Inputs | `.p-drop(.is-full)` file drop, `.p-range(.is-lg)`, `.p-choice(.is-on)` radio-card |
-| Small marks | `.p-kbd` / `<Kbd>`, `.p-dot` (`is-lume/gold/pos/warn/neg`, `is-pulse`), `.p-spin`, `.p-icon-btn(.is-sm)` |
-| Tones | `.p-badge.is-gold/.is-pos/.is-neg/.is-solid`, `.p-avatar.is-sm/.is-lume`, `.p-alert.is-quiet`, `.p-stat-num.is-sm`, `.p-seam.is-inline`, `.p-table.is-clickable/.is-dense`, `.p-tab:disabled`, `.p-drop.is-over` (drag-over) |
-| Toasts | `.p-toaster` > `.p-toast` |
+| Clickable card | `<a class="p-card is-link">` or `<button class="p-card is-link">`, never a bare div |
+| Inputs | `.p-drop(.is-full/.is-over)` file drop (a `<label>` around the input), `.p-range(.is-lg)`, `.p-choice(.is-on/.is-sm)` radio-card |
+| Small marks | `.p-kbd` / `<Kbd>`, `.p-dot` (`is-lume/gold/pos/neg`, `is-pulse`), `.p-spin` (pair with text or `role="status"`), `.p-icon-btn(.is-sm)` (needs `aria-label`) |
+| Tones | `<Badge tone>` / `.p-badge.is-gold/.is-pos/.is-neg/.is-quiet/.is-solid`, `<Avatar tone size>` / `.p-avatar.is-sm/.is-lume`, `.p-alert.is-quiet`, `.p-stat-num.is-sm`, `.p-table.is-clickable/.is-dense`, `.p-tab:disabled` |
+| Toasts | `.p-toaster[role=status]` > `.p-toast` |
 
 ## Rules of the look
 
-- Gold is for action (primary button, the one primary card). Teal lume is for signal (live, active tab, eyebrow).
+- Gold is for action (primary button, the one primary card, a picked choice, the highlighted palette row). Teal lume is for signal and state (live, active tab, current rail link, step progress, busy).
 - Pills for actions and tabs, 12px panels, 8px fields, hairline rules instead of borders.
 - Geist everywhere; the accent moment is `.p-serif` (Geist, synthesized italic like the site, in gold), one per heading.
 - Text on a gold/teal/red fill uses `--p-on-gold` / `--p-on-lume` / `--p-on-neg`, never `#fff`.

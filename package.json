@@ -9,6 +9,7 @@
     ".": "./src/index.ts",
     "./tokens.css": "./css/tokens.css",
     "./components.css": "./css/components.css",
+    "./forms.css": "./css/forms.css",
     "./console.css": "./css/console.css"
   },
   "files": ["css", "src"],

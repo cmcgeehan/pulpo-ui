@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/forms.css">
 <link rel="stylesheet" href="css/console.css">
 <style>
   /* Showcase layout only — not part of the package. */
@@ -133,8 +134,8 @@
     <div class="p-shell" style="height:420px; border-radius:12px; box-shadow:inset 0 0 0 1px var(--p-rule-2)">
       <nav class="p-rail" aria-label="Demo rail">
         <div class="p-rail-section">Hiring</div>
-        <a class="p-rail-link is-active" href="#">Jobs <span class="count">12</span></a>
-        <a class="p-rail-link" href="#">Candidates <span class="count">348</span></a>
+        <a class="p-rail-link" href="#" aria-current="page"><span class="p-rail-ico" aria-hidden="true">▤</span>Jobs <span class="p-count">12</span></a>
+        <a class="p-rail-link" href="#"><span class="p-rail-ico" aria-hidden="true">◎</span>Candidates <span class="p-count">348</span></a>
         <a class="p-rail-link" href="#">Review setup</a>
         <div class="p-rail-foot"><span class="p-caption">Ana · Pulpo</span></div>
       </nav>
@@ -149,13 +150,13 @@
           <div class="p-page-head-actions"><button class="p-btn p-btn-primary p-btn-sm">New job <kbd class="p-kbd">N</kbd></button></div>
         </div>
         <div class="p-toolbar">
-          <div class="p-tabs is-sm" role="tablist" aria-label="Filter"><button class="p-tab is-active" role="tab" aria-selected="true">All<span class="p-count">12</span></button><button class="p-tab" role="tab" aria-selected="false">Live<span class="p-count">9</span></button></div>
+          <div class="p-tabs is-sm" role="tablist" aria-label="Filter"><button class="p-tab is-active" role="tab" aria-selected="true">All <span class="p-count">12</span></button><button class="p-tab" role="tab" aria-selected="false">Live <span class="p-count">9</span></button></div>
           <span class="p-toolbar-spacer"></span>
           <span class="p-block-meta">Updated 2m ago</span>
         </div>
         <div class="sc-grid">
-          <div class="p-card p-card-compact is-link"><div class="p-stat"><span class="p-stat-num is-sm">48</span><span class="p-stat-label">Pass</span></div></div>
-          <div class="p-card p-card-compact is-link"><div class="p-stat"><span class="p-stat-num is-sm is-gold">17</span><span class="p-stat-label">Your queue</span></div></div>
+          <a class="p-card p-card-compact is-link" href="#"><div class="p-stat"><span class="p-stat-num is-sm">48</span><span class="p-stat-label">Pass</span></div></a>
+          <a class="p-card p-card-compact is-link" href="#"><div class="p-stat"><span class="p-stat-num is-sm is-gold">17</span><span class="p-stat-label">Your queue</span></div></a>
         </div>
       </main>
     </div>
@@ -165,13 +166,13 @@
     <div class="p-eyebrow">Steps · p-steps, p-steps.is-row</div>
     <ol class="p-steps is-row">
       <li class="p-step is-done"><span class="p-step-mark">✓</span><span class="p-step-text"><span class="p-step-label">Job</span><span class="p-step-meta">Posted</span></span></li>
-      <li class="p-step is-now is-link"><span class="p-step-mark">02</span><span class="p-step-text"><span class="p-step-label">Import</span><span class="p-step-meta">Add candidates</span></span></li>
+      <li><button class="p-step is-now is-link" type="button"><span class="p-step-mark">02</span><span class="p-step-text"><span class="p-step-label">Import</span><span class="p-step-meta">Add candidates</span></span></button></li>
       <li class="p-step"><span class="p-step-mark">03</span><span class="p-step-text"><span class="p-step-label">Screen</span><span class="p-step-meta">AI scores</span></span></li>
       <li class="p-step"><span class="p-step-mark">04</span><span class="p-step-text"><span class="p-step-label">Book</span><span class="p-step-meta">WhatsApp</span></span></li>
     </ol>
     <div class="sc-grid">
       <ol class="p-steps p-well">
-        <li class="p-step is-done is-link"><span class="p-step-mark">✓</span><span class="p-step-text"><span class="p-step-label">The role</span><span class="p-step-meta">Title, client</span></span></li>
+        <li><button class="p-step is-done is-link" type="button"><span class="p-step-mark">✓</span><span class="p-step-text"><span class="p-step-label">The role</span><span class="p-step-meta">Title, client</span></span></button></li>
         <li class="p-step is-now"><span class="p-step-mark">02</span><span class="p-step-text"><span class="p-step-label">The posting</span><span class="p-step-meta">Seven sections</span></span></li>
         <li class="p-step"><span class="p-step-mark">03</span><span class="p-step-text"><span class="p-step-label">Thresholds</span><span class="p-step-meta">Pass and review</span></span></li>
       </ol>
@@ -188,7 +189,7 @@
   </section>
 
   <section class="sc-sec">
-    <div class="p-eyebrow">Inputs · p-drop, p-kbd, p-dot, badge tones, small avatars</div>
+    <div class="p-eyebrow">Inputs · p-drop (forms.css), p-kbd, p-dot, badge tones, small avatars</div>
     <div class="sc-grid">
       <label class="p-drop"><input type="file" multiple><span class="p-drop-mark">↑</span><strong>Drop resumes</strong><em>PDF, up to 50 at once</em></label>
       <label class="p-drop is-full"><input type="file" multiple><span class="p-drop-mark">✓</span><strong>12 files ready</strong><em>Parsing on import</em></label>
@@ -202,16 +203,16 @@
       <span class="p-badge is-solid">Booked</span>
       <span class="p-avatar is-sm">AR</span><span class="p-avatar is-sm is-gold">LO</span><span class="p-avatar is-sm is-lume">MG</span>
       <kbd class="p-kbd">⌘K</kbd><kbd class="p-kbd">G</kbd><kbd class="p-kbd">J</kbd>
-      <span class="sc-row"><span class="p-dot"></span><span class="p-dot is-lume is-pulse"></span><span class="p-dot is-gold"></span><span class="p-dot is-pos"></span><span class="p-dot is-warn"></span><span class="p-dot is-neg"></span></span>
+      <span class="sc-row"><span class="p-dot"></span><span class="p-dot is-lume is-pulse"></span><span class="p-dot is-gold"></span><span class="p-dot is-pos"></span><span class="p-dot is-neg"></span></span>
     </div>
     <div class="p-alert is-quiet"><div>p-alert is-quiet · No resume yet, so this one won't be screened.</div></div>
-    <div class="p-seam is-inline"><span class="p-seam-cap">p-seam is-inline</span><span class="p-seam-mark"></span></div>
+    <div class="p-divider"><span class="p-divider-mark"></span>p-divider</div>
   </section>
 
   <section class="sc-sec">
-    <div class="p-eyebrow">Overlays · p-cmd, p-modal.is-flush (shown in place)</div>
+    <div class="p-eyebrow">Overlays · p-modal.p-cmd, p-modal.is-flush with head/body/foot (shown in place; live ones sit in .p-modal-scrim, the palette in .p-modal-scrim.is-top)</div>
     <div class="sc-grid">
-      <div class="p-cmd" style="animation:none">
+      <div class="p-modal is-flush p-cmd" role="dialog" aria-label="Command palette" style="animation:none">
         <div class="p-cmd-input"><span aria-hidden="true">⌕</span><input placeholder="Jump to a job, candidate or action" aria-label="Command"></div>
         <div class="p-cmd-list">
           <div class="p-cmd-group">Jobs</div>
@@ -220,11 +221,22 @@
         </div>
         <div class="p-cmd-foot"><span><kbd class="p-kbd">↑↓</kbd> move</span><span><kbd class="p-kbd">↵</kbd> open</span><span><kbd class="p-kbd">esc</kbd> close</span></div>
       </div>
-      <div class="p-modal is-flush" style="animation:none; max-height:none">
-        <div class="p-modal-body"><h3 class="p-h4">Overrule the screen?</h3><p class="p-body-sm" style="margin:0">Say why, so the screener learns from it.</p><textarea class="p-textarea" aria-label="Why"></textarea></div>
+      <div class="p-modal is-flush" role="dialog" aria-label="Overrule" style="animation:none; max-height:none">
+        <div class="p-modal-head"><h3 class="p-h4">Overrule the screen?</h3></div>
+        <div class="p-modal-body"><p class="p-body-sm" style="margin:0">Say why, so the screener learns from it.</p><textarea class="p-textarea" aria-label="Why"></textarea></div>
         <div class="p-modal-foot"><button class="p-btn p-btn-ghost p-btn-sm">Cancel</button><button class="p-btn p-btn-primary p-btn-sm">Overrule</button></div>
       </div>
     </div>
+  </section>
+
+  <section class="sc-sec">
+    <div class="p-eyebrow">Data · p-block-head, p-table.is-dense.is-clickable, p-toast</div>
+    <div class="p-block-head"><h3>Recent Indeed activity</h3><span class="p-block-meta">every call is logged</span></div>
+    <div class="sc-scroll"><table class="p-table is-dense is-clickable">
+      <thead><tr><th>When</th><th>Job</th><th class="num">Applicants</th></tr></thead>
+      <tbody><tr><td>2m ago</td><td>Dispatcher</td><td class="num p-mono">4</td></tr><tr><td>1h ago</td><td>Bookkeeper</td><td class="num p-mono">11</td></tr></tbody>
+    </table></div>
+    <div class="sc-row" role="status"><div class="p-toast is-lume"><div><div class="p-toast-title">Advanced Ana Ruiz</div><div class="p-toast-body">WhatsApp invite sent.</div></div></div></div>
   </section>
 
   <div class="p-seam"><span class="p-seam-cap">§ end</span><span class="p-seam-mark"></span></div>
