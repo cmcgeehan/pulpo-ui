@@ -31,8 +31,7 @@
 .p-lede    { font-size: 17px; color: var(--p-fg-2); line-height: 1.6; max-width: 60ch; }
 .p-body    { font-size: var(--p-size-body); color: var(--p-fg-2); line-height: var(--p-line-loose); }
 .p-body-sm { font-size: var(--p-size-body-sm); color: var(--p-fg-2); line-height: 1.6; }
-.p-caption { font-size: var(--p-size-caption); color: var(--p-fg-3); }
-.p-meta    { font-size: 13px; line-height: 1.5; color: var(--p-fg-3); } /* sans metadata line, the site's caption-2 */
+.p-caption { font-size: var(--p-size-caption); line-height: 1.5; color: var(--p-fg-3); } /* sans metadata line, the site's caption-2 */
 .p-mono    { font-family: var(--p-mono); font-variant-numeric: tabular-nums; }
 
 /* Screenprint grain, like the site's illustrations. Put on the app root. Dark only. */
@@ -70,7 +69,7 @@
   align-items: center;
   gap: 10px;
 }
-.p-eyebrow.is-pulse::before, .p-eyebrow.is-live::before {
+.p-eyebrow.is-pulse::before {
   content: "";
   width: 6px; height: 6px;
   border-radius: 9999px;
@@ -140,10 +139,14 @@
 /* DASH — the site's short teal bar that tops a quote card */
 .p-dash { display: block; width: 40px; height: 2px; border-radius: 2px; background: var(--p-lume); }
 
-/* SPOT — an illustration on black. In dark its black melts into the canvas; hidden in light. Decorative: alt="". */
+/* SPOT — an illustration on black. In dark its black melts into the canvas; hidden in light, so pair it with a
+   .p-light-only icon where the art carries meaning (an upload or add affordance). Decorative: alt="", loading="lazy". */
 .p-spot { display: block; width: 88px; height: auto; mix-blend-mode: lighten; }
+.p-spot.is-sm { width: 64px; }
 .p-spot.is-lg { width: min(280px, 60vw); }
 [data-theme="light"] .p-spot { display: none; } /* black-ground art has no light version; on paper it reads as a stray tile */
+.p-light-only { display: none; }
+[data-theme="light"] .p-light-only { display: revert; }
 
 /* serif italic accent — defaults to gold; .is-lume swaps to green */
 .p-serif { font-family: var(--p-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--p-gold); }
@@ -357,7 +360,8 @@
 .p-stat-num.is-sm { font-size: 30px; }
 .p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 28px 40px; }
 .p-stats .p-stat { gap: 8px; }
-.p-stat-note { font-size: 14px; line-height: 1.5; color: var(--p-fg-2); }
+.p-stat-title { font-size: 15px; font-weight: 500; color: var(--p-fg-1); margin-top: 4px; } /* optional line between the number and the note */
+.p-stat-note { font-size: var(--p-size-body-sm); line-height: 1.5; color: var(--p-fg-2); }
 .p-stat-label {
   font-family: var(--p-mono);
   font-size: var(--p-size-mono);

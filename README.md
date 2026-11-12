@@ -7,7 +7,7 @@ React fronts. Open `showcase.html` in a browser to see every piece in both theme
 ## Use it
 
 ```bash
-npm i github:cmcgeehan/pulpo-ui#v0.2.0
+npm i github:cmcgeehan/pulpo-ui#v0.3.0
 ```
 
 ```ts
@@ -67,7 +67,7 @@ colors to them in `@theme inline`.
 
 All three class files sit in `@layer base, components`, so app CSS and Tailwind utilities win.
 
-## Console pieces (v0.2)
+## Console pieces
 
 | Need | Class |
 |---|---|
@@ -81,7 +81,7 @@ All three class files sit in `@layer base, components`, so app CSS and Tailwind 
 | Recessed panel | `.p-well` |
 | Clickable card | `<a class="p-card is-link">` or `<button class="p-card is-link">`, never a bare div |
 | Inputs | `.p-drop(.is-full/.is-over)` file drop (a `<label>` around the input), `.p-range(.is-lg)`, `.p-choice(.is-on/.is-sm)` radio-card (in a `role="radiogroup"`, each `role="radio"` with `aria-checked`) |
-| The site look | `.p-grad` (headline fade, one phrase), `.p-dash` (teal bar topping a quote card), `.p-spot(.is-lg)` (black-ground art from the site's `public/raven/`; hidden in light), `.p-meta` (sans metadata line), `.p-stats` > `.p-stat` (`.p-stat-num.is-lume/.is-gold` + `.p-stat-note`) |
+| The site look | `.p-grad` (headline fade, one phrase), `.p-dash` (teal bar topping a quote card), `.p-spot(.is-sm/.is-lg)` (black-ground art from the site's `public/raven/`; hidden in light, pair with a `.p-light-only` icon), `.p-caption` (sans metadata line), `.p-stats` > `.p-stat` (`.p-stat-num.is-lume/.is-gold`, optional `.p-stat-title`, `.p-stat-note`) |
 | Small marks | `.p-kbd` / `<Kbd>`, `.p-dot` (`is-lume/gold/pos/neg`, `is-pulse`), `.p-spin` (pair with text or `role="status"`), `.p-icon-btn(.is-sm)` (needs `aria-label`) |
 | Tones | `<Badge tone>` / `.p-badge.is-gold/.is-pos/.is-neg/.is-quiet/.is-solid`, `<Avatar tone size>` / `.p-avatar.is-sm/.is-lume`, `.p-alert.is-quiet`, `.p-stat-num.is-sm`, `.p-table.is-clickable/.is-dense`, `.p-tab:disabled` |
 | Toasts | `.p-toaster[role=status]` > `.p-toast` |
@@ -96,7 +96,14 @@ All three class files sit in `@layer base, components`, so app CSS and Tailwind 
 
 ## Upgrading from 0.2
 
-v0.3 matches heypulpo.com more closely: eyebrows have no dot unless `.is-pulse` / `<Eyebrow pulse>` (for something live), headings are 600, buttons are a size up, the console rail and header are flat on the canvas, and `.p-page-head` is the site's big section head. No classes were removed.
+v0.3 matches heypulpo.com more closely. Visible changes for existing apps:
+
+- Eyebrows have no dot unless `.is-pulse` / `<Eyebrow pulse>` (for something live). `.is-quiet` and the `quiet` prop are gone (no-ops now).
+- `.p-h2`, `.p-h4` and stat numbers are weight 600; `.p-stat-num` runs 32-48px. Buttons are a size up (14px, sm 13px, lg 16px).
+- Console: `.p-rail` sits on `--p-bg` (no grey panel), `.p-rail-link` is a pill, `.p-app-header` has no bottom rule, `.p-app-main` pads `24px 40px 96px`.
+- `.p-page-head` is the site's section head: 36-48px/600 h1, 16px `.p-page-sub`, no rule, 40px below. `.p-block-head h3` is 20px/600.
+- `.p-caption` gains `line-height: 1.5`.
+- New: `.p-grad`, `.p-dash`, `.p-spot(.is-sm/.is-lg)`, `.p-light-only`, `.p-stats`, `.p-stat-title`, `.p-stat-note`.
 
 ## Upgrading from 0.1
 
